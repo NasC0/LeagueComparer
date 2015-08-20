@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>712</x>
+      <y>616</y>
+      <w>168</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::EntryPoint
+{Some Properties}
+--
+/+RunSynchronization()/
+--
+Responsibilities
+-- The main point for the
+DB syncing with the LoL API</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>712</x>
+      <y>808</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::QueryExecutor
+{Some Properties}
+--
+/+ExecuteQuery(Query)/
+--
+Responsibilities
+-- Handles query execution for
+calls to the LoL API</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>784</x>
+      <y>720</y>
+      <w>24</w>
+      <h>104</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1056</x>
+      <y>816</y>
+      <w>288</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::QueryResponseProcessor
+{Some Properties}
+--
+-ProcessingFactory: GameObjectProcessingFactory
+--
+/+ProcessQueryResponse(QueryResponse)/
+--
+Responsibilities
+-- Determines whether there are changes to be made to
+any documents in the DB
+and hands a list of items to be persisted to the DAL</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>872</x>
+      <y>880</y>
+      <w>200</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;230.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>976</x>
+      <y>48</y>
+      <w>184</w>
+      <h>128</h>
+    </coordinates>
+    <panel_attributes>bg=white
+&lt;&lt;Stereotype&gt;&gt;
+Package::IGameObjectStrategy
+{Some Properties}
+--
+/+Process&lt;T&gt;(QueryResponse)/
+--
+Responsibilities
+-- Base class for the different
+object processors - Items,
+Characters, Runes, Masteries, ETC</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>656</x>
+      <y>344</y>
+      <w>152</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>bg=white
+&lt;&lt;Stereotype&gt;&gt;
+Package::ItemProcessor
+{Some Properties}
+--
+Responsibilities
+-- Processes the Item
+data model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>896</x>
+      <y>344</y>
+      <w>152</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>bg=white
+&lt;&lt;Stereotype&gt;&gt;
+Package::CharacterProcessor
+{Some Properties}
+--
+Responsibilities
+-- Processes the Character
+data model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1416</x>
+      <y>344</y>
+      <w>168</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>bg=white
+&lt;&lt;Stereotype&gt;&gt;
+Package::RuneProcessor
+{Some Properties}
+--
+Responsibilities
+-- Processes the Rune
+data model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>344</y>
+      <w>152</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>bg=white
+&lt;&lt;Stereotype&gt;&gt;
+Package::MasteryProcessor
+--
+Responsibilities
+-- Processes the Mastery
+data model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>632</x>
+      <y>0</y>
+      <w>976</w>
+      <h>504</h>
+    </coordinates>
+    <panel_attributes>GameObject Processing Strategy
+--
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>952</x>
+      <y>168</y>
+      <w>112</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>784</x>
+      <y>168</y>
+      <w>216</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>250.0;10.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1056</x>
+      <y>168</y>
+      <w>168</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;190.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1136</x>
+      <y>168</y>
+      <w>384</w>
+      <h>192</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;instanceOf&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;460.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1000</x>
+      <y>592</y>
+      <w>296</w>
+      <h>168</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::GameObjectProcessingFactory
+{Some Properties}
+--
+#GetProcessor(QueryResponse): IGameObjectStrategy
+--
+Responsibilities
+-- Gets the appropriate strategy for the current query
+response passed.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1144</x>
+      <y>496</y>
+      <w>24</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1184</x>
+      <y>752</y>
+      <w>24</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>272</x>
+      <y>800</y>
+      <w>232</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::QueryBuilder
+{Some Properties}
+--
+_-ApiHost: String_
+--
+#BuildQuery(queryType: QueryObjectType
+ queryParameters: params[]): Query
+--
+Responsibilities
+-- Builds queries to be send to the LoL API
+later</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>40</x>
+      <y>392</y>
+      <w>176</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::QueryObjectType
+{Some Properties}
+--
+Responsibilities
+-- Enumerates the types of 
+executable queries - Character,
+Item, Rune or Mastery</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>280</x>
+      <y>584</y>
+      <w>216</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::Query
+{Some Properties}
+--
+-QueryObjectType: QueryObjectType
+-Parameters: IEnumerable&lt;Parameter&gt;
+-FullQuery: string
+--
+Responsibilities
+-- Holds information about the query to be
+executed</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>496</x>
+      <y>880</y>
+      <w>232</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>984</x>
+      <y>1104</y>
+      <w>472</w>
+      <h>248</h>
+    </coordinates>
+    <panel_attributes>DAL
+--
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1232</x>
+      <y>960</y>
+      <w>24</w>
+      <h>176</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>296</x>
+      <y>384</y>
+      <w>168</w>
+      <h>152</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::Parameter
+{Some Properties}
+--
+-Name: string
+-Value: string
+--
+Responsibilities
+-- Holds information about 
+a query parameter</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

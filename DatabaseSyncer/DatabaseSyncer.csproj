@@ -94,11 +94,11 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Data\Data.csproj">
+    <ProjectReference Include="..\Data\Data\Data.csproj">
       <Project>{5973c094-1d69-4d8c-8b77-d65ff08a22b1}</Project>
       <Name>Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Modelas\Models.csproj">
+    <ProjectReference Include="..\Data\Models\Models.csproj">
       <Project>{d974132d-d66d-498b-a5a1-d14fcb13a7c5}</Project>
       <Name>Models</Name>
     </ProjectReference>
