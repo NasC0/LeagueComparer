@@ -7,7 +7,7 @@ namespace Models.Common
     public class Gold
     {
         public int Total { get; set; }
-        public bool Purchaseable { get; set; }
+        public bool Purchasable { get; set; }
         public int Sell { get; set; }
         public int Base { get; set; }
     }

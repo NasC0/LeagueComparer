@@ -10,33 +10,31 @@ namespace ApiProcessing.Queries
 {
     internal class Query : IQuery
     {
-        private IEnumerable<QueryParameter> parameters;
-        private string apiKey;
+        private ICollection<QueryParameter> parameters;
         private string host;
 
-        public Query(ObjectType objectType, string apiKey, string host)
+        public Query(ObjectType objectType, string host)
         {
             this.ObjectType = objectType;
             this.parameters = new List<QueryParameter>();
-            this.ApiKey = apiKey;
             this.Host = host;
         }
 
-        public Query(ObjectType objectType, string apiKey, string host, IEnumerable<QueryParameter> parameters)
-            : this(objectType, apiKey, host)
+        public Query(ObjectType objectType, string host, ICollection<QueryParameter> parameters) 
+            : this(objectType, host)
         {
             this.Parameters = parameters;
         }
 
-        public Query(ObjectType objectType, string apiKey, string host, params QueryParameter[] parameters)
-            : this(objectType, apiKey, host)
+        public Query(ObjectType objectType, string host, params QueryParameter[] parameters) 
+            : this(objectType, host)
         {
             this.Parameters = parameters;
         }
 
         public ObjectType ObjectType { get; private set; }
 
-        internal IEnumerable<QueryParameter> Parameters
+        internal ICollection<QueryParameter> Parameters
         {
             get
             {
@@ -55,24 +53,6 @@ namespace ApiProcessing.Queries
                 }
 
                 this.parameters = value;
-            }
-        }
-
-        internal string ApiKey
-        {
-            get
-            {
-                return this.apiKey;
-            }
-
-            private set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("ApiKey cannot be null, empty or plain whitespace.");
-                }
-
-                this.apiKey = value;
             }
         }
 
@@ -108,9 +88,9 @@ namespace ApiProcessing.Queries
                     queryString.AppendFormat(parameterFormat, parameter.Name, parameter.Value);
                     queryString.Append('&');
                 }
-            }
 
-            queryString.AppendFormat(parameterFormat, Resources.ApiKeyParameterName, this.ApiKey);
+                queryString.Remove(queryString.Length - 1, 1);
+            }
 
             return queryString.ToString();
         }

@@ -42,6 +42,14 @@
       <HintPath>..\packages\MongoDB.Driver.Core.2.0.1\lib\net45\MongoDB.Driver.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -51,10 +59,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Champion.cs" />
+    <Compile Include="Common\Champion\ChampionStats.cs" />
+    <Compile Include="Common\Champion\PassiveSpell.cs" />
     <Compile Include="Common\Entity.cs" />
+    <Compile Include="Common\Enumerations\ModifierApplicationRules.cs" />
+    <Compile Include="Common\Enumerations\Modifies.cs" />
+    <Compile Include="Common\Enumerations\ModifyType.cs" />
     <Compile Include="Common\Gold.cs" />
     <Compile Include="Common\Image.cs" />
+    <Compile Include="Common\Stat.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="JsonConverters\IStatConverter.cs" />
+    <Compile Include="JsonConverters\StatConverter.cs" />
+    <Compile Include="JsonConverters\StatsJsonConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

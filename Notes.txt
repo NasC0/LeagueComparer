@@ -1,0 +1,13 @@
+1. Maybe implement Reverse Polish Notation for tooltip representation?
+
+2. Champion Parameters:
+altimages,
+image,
+info,
+lore,
+partype,
+passive,
+spells,
+stats,
+tags
+https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion/266?champData=image,info,lore,partype,passive,spells,stats,tags&api_key=ee57feb3-1da3-441d-807a-7486e0559e72

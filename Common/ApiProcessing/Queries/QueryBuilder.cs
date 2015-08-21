@@ -8,10 +8,13 @@ namespace ApiProcessing.Queries
 {
     public class QueryBuilder : IQueryBuilder
     {
+        private const string ApiKeyParameterName = "api_key";
+
         private readonly QueryParameter RequiredItemParameter = new QueryParameter("itemListData", "all");
         private readonly QueryParameter RequiredChampionParameter = new QueryParameter("champData", "all");
         private readonly QueryParameter RequiredRuneParameter = new QueryParameter("runeListData", "all");
         private readonly QueryParameter RequiredMasteryParameter = new QueryParameter("masteryListData", "all");
+        private readonly QueryParameter RequiredApiKeyParameter;
 
         private string apiKey;
         private string host;
@@ -20,6 +23,7 @@ namespace ApiProcessing.Queries
         {
             this.ApiKey = apiKey;
             this.Host = host;
+            this.RequiredApiKeyParameter = new QueryParameter(ApiKeyParameterName, this.ApiKey);
         }
 
         public string ApiKey
@@ -64,9 +68,9 @@ namespace ApiProcessing.Queries
             return this.BuildQuery(objectType, parameters);
         }
 
-        public IQuery BuildQuery(ObjectType objectType, IEnumerable<QueryParameter> parameters)
+        public IQuery BuildQuery(ObjectType objectType, ICollection<QueryParameter> parameters)
         {
-            IEnumerable<QueryParameter> processedParameters = null;
+            ICollection<QueryParameter> processedParameters = null;
 
             if (objectType == ObjectType.Item)
             {
@@ -85,39 +89,36 @@ namespace ApiProcessing.Queries
                 processedParameters = GetMasteryParameters(parameters);
             }
 
-            return new Query(objectType, this.ApiKey, this.Host, processedParameters);
+            processedParameters.Add(this.RequiredApiKeyParameter);
+            return new Query(objectType, this.Host, processedParameters);
         }
 
-        private IEnumerable<QueryParameter> GetItemParameters(IEnumerable<QueryParameter> parameters)
+        private ICollection<QueryParameter> GetItemParameters(ICollection<QueryParameter> parameters)
         {
-            var queryParameters = new List<QueryParameter>(parameters);
-            queryParameters.Add(RequiredItemParameter);
+            parameters.Add(RequiredItemParameter);
 
-            return queryParameters;
+            return parameters;
         }
 
-        private IEnumerable<QueryParameter> GetChampionParameters(IEnumerable<QueryParameter> parameters)
+        private ICollection<QueryParameter> GetChampionParameters(ICollection<QueryParameter> parameters)
         {
-            var queryParameters = new List<QueryParameter>(parameters);
-            queryParameters.Add(RequiredChampionParameter);
+            parameters.Add(RequiredChampionParameter);
 
-            return queryParameters;
+            return parameters;
         }
 
-        private IEnumerable<QueryParameter> GetRuneParameters(IEnumerable<QueryParameter> parameters)
+        private ICollection<QueryParameter> GetRuneParameters(ICollection<QueryParameter> parameters)
         {
-            var queryParameters = new List<QueryParameter>(parameters);
-            queryParameters.Add(RequiredRuneParameter);
+            parameters.Add(RequiredRuneParameter);
 
-            return queryParameters;
+            return parameters;
         }
 
-        private IEnumerable<QueryParameter> GetMasteryParameters(IEnumerable<QueryParameter> parameters)
+        private ICollection<QueryParameter> GetMasteryParameters(ICollection<QueryParameter> parameters)
         {
-            var queryParameters = new List<QueryParameter>(parameters);
-            queryParameters.Add(RequiredMasteryParameter);
+            parameters.Add(RequiredMasteryParameter);
 
-            return queryParameters;
+            return parameters;
         }
     }
 }

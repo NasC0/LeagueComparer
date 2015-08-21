@@ -1,0 +1,29 @@
+﻿namespace Models.Common.Enumerations
+{
+    public enum Modifies
+    {
+        Armor,
+        ArmorPenetration,
+        AttackSpeed,
+        Block,
+        CritChance,
+        CritDamage,
+        Cooldown,
+        EXP,
+        EnergyPool,
+        EnergyRegen,
+        HPPool,
+        HPRegen,
+        GoldPer10,
+        LifeSteal,
+        MPPool,
+        MPRegen,
+        MagicDamage,
+        MagicPenetration,
+        MovementSpeed,
+        PhysicalDamage,
+        SpellBlock,
+        SpellVamp,
+        TimeDead
+    }
+}
