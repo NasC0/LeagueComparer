@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E0485E04-2C82-43A3-9CDA-46C29C98042D}</ProjectGuid>
+    <ProjectGuid>{E24161AC-C5E1-47DE-BD0C-26431277B4C0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Helpers</RootNamespace>
-    <AssemblyName>Helpers</AssemblyName>
+    <RootNamespace>AnalysisCore</RootNamespace>
+    <AssemblyName>AnalysisCore</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,20 +44,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApiUrlBuilder.cs" />
-    <Compile Include="Contracts\IApiUrlBuilder.cs" />
-    <Compile Include="Exceptions\FailedOperationException.cs" />
-    <Compile Include="Extensions.cs" />
+    <Compile Include="AnalysisBase.cs" />
+    <Compile Include="ChampionResourcesAnalyser.cs" />
+    <Compile Include="GetSpellCostTypes.cs" />
+    <Compile Include="IAnalysisBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RuneTypes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Configuration\Configuration.csproj">
+    <ProjectReference Include="..\..\Common\Configuration\Configuration.csproj">
       <Project>{9d50b3a8-df0f-4aa2-9f84-4b97731d1012}</Project>
       <Name>Configuration</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Common\Helpers\Helpers.csproj">
+      <Project>{e0485e04-2c82-43a3-9cda-46c29c98042d}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

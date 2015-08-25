@@ -1,0 +1,17 @@
+﻿{
+	"apiKey": "ee57feb3-1da3-441d-807a-7486e0559e72",
+	"ApiLatestChampionVersion": "v1.2",
+	"ApiLatestCurrentGameVersion": "v1.0",
+	"ApiLatestFeaturedGamesVersion": "v1.0",
+	"ApiLatestGameVersion": "v1.3",
+	"ApiLatestLeagueVersion": "v2.5",
+	"ApiLatestStaticDataVersion": "v1.2",
+	"ApiLatestStatusVersion": "v1.0",
+	"ApiLatestMatchVersion": "v2.2",
+	"ApiLatestMatchHistoryVersion": "v2.2",
+	"ApiLatestMatchListVersion": "v2.2",
+	"ApiLatestStatsVersion": "v1.3",
+	"ApiLatestSummonerVersion": "v1.4",
+	"ApiLatestTeamVersion": "v2.4",
+	"StaticData": "static-data"
+}

@@ -9,6 +9,7 @@ namespace ApiProcessing.Models.JsonConverters
     {
         private const string BorderCaseMPPool = "MPMod";
         private const string BorderCaseHPPool = "HPMod";
+        private const string BorderCaseEnergy = "Energy";
 
         private IEnumerable<string> availableStatNames;
         private IEnumerable<string> availableModifierApplicationRules;
@@ -69,7 +70,13 @@ namespace ApiProcessing.Models.JsonConverters
 
                 if (!isNameConverted)
                 {
-                    throw new ArgumentException("Non existent stat name in list", "Stat");
+                    if (originStat.Contains(BorderCaseEnergy))
+                    {
+                        destinationStat.Modifies = Modifies.EnergyPool;
+                        return;
+                    }
+
+                    throw new ArgumentException("Non existent stat name in list", originStat);
                 }
             }
         }
@@ -92,7 +99,7 @@ namespace ApiProcessing.Models.JsonConverters
 
             if (!isApplicationRuleConverted)
             {
-                throw new ArgumentException("Non existent modifier application rule in list", "Stat");
+                throw new ArgumentException("Non existent modifier application rule in list", originStat);
             }
         }
 
@@ -115,7 +122,7 @@ namespace ApiProcessing.Models.JsonConverters
 
             if (!isModifyTypeConverted)
             {
-                throw new ArgumentException("Non existent modifier type in list", "Stat");
+                throw new ArgumentException("Non existent modifier type in list", originStat);
             }
         }
     }

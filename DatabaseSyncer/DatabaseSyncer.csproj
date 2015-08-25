@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="config\config.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\Common\ApiProcessing\ApiProcessing.csproj">
       <Project>{351055F7-06DF-47BB-A3C3-67C97046A241}</Project>
       <Name>ApiProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Configuration\Configuration.csproj">
+      <Project>{9d50b3a8-df0f-4aa2-9f84-4b97731d1012}</Project>
+      <Name>Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data\Data.csproj">
       <Project>{5973c094-1d69-4d8c-8b77-d65ff08a22b1}</Project>

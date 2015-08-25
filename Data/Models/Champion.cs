@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Models.Common;
 using Models.Common.Champion;
+using Models.Common.Enumerations;
+using Models.JsonConverters;
 using Newtonsoft.Json;
 
 namespace Models
@@ -15,8 +17,9 @@ namespace Models
         public string Name { get; set; }
         public PassiveSpell Passive { get; set; }
         public Image Image { get; set; }
-        //TODO: Spells
-        public string Partype { get; set; }
+        public IEnumerable<Spell> Spells { get; set; }
+        [JsonConverter(typeof(GenericEnumConverter<ChampionResourceType>))]
+        public ChampionResourceType Partype { get; set; }
         public string Lore { get; set; }
         public string Title { get; set; }
 

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Models.Common.Enumerations
 {
-    public enum ModifierApplicationRules
+    public enum RuneTypes
     {
-        ModPerLevel,
-        Mod,
-        PerLevel,
-        Bonus
+        black,
+        yellow,
+        blue,
+        red
     }
 }

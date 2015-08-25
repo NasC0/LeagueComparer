@@ -61,19 +61,33 @@
   <ItemGroup>
     <Compile Include="Champion.cs" />
     <Compile Include="Common\Champion\ChampionStats.cs" />
+    <Compile Include="Common\Champion\LevelTip.cs" />
     <Compile Include="Common\Champion\PassiveSpell.cs" />
+    <Compile Include="Common\Champion\Spell.cs" />
+    <Compile Include="Common\Champion\SpellEffect.cs" />
+    <Compile Include="Common\Champion\SpellVars.cs" />
     <Compile Include="Common\Entity.cs" />
+    <Compile Include="Common\Enumerations\ChampionResourceType.cs" />
     <Compile Include="Common\Enumerations\ModifierApplicationRules.cs" />
     <Compile Include="Common\Enumerations\Modifies.cs" />
     <Compile Include="Common\Enumerations\ModifyType.cs" />
+    <Compile Include="Common\Enumerations\RuneTypes.cs" />
     <Compile Include="Common\Gold.cs" />
     <Compile Include="Common\Image.cs" />
+    <Compile Include="Common\MasteryTypes.cs" />
+    <Compile Include="Common\RuneType.cs" />
     <Compile Include="Common\Stat.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="JsonConverters\ChampionResourceTypeConverter.cs" />
     <Compile Include="JsonConverters\IStatConverter.cs" />
+    <Compile Include="JsonConverters\MasteryTypesConverter.cs" />
+    <Compile Include="JsonConverters\RuneTypesConverter.cs" />
+    <Compile Include="JsonConverters\SpellEffectConverter.cs" />
     <Compile Include="JsonConverters\StatConverter.cs" />
     <Compile Include="JsonConverters\StatsJsonConverter.cs" />
+    <Compile Include="Mastery.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rune.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

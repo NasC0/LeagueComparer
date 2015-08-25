@@ -1,0 +1,11 @@
+Mana
+BloodWell
+Battlefury
+None
+Energy
+Heat
+Gnarfury
+Dragonfury
+Ferocity
+Wind
+Rage
