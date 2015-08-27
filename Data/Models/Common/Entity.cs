@@ -1,4 +1,5 @@
 ﻿using System;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
 namespace Models.Common
@@ -8,6 +9,7 @@ namespace Models.Common
         public Entity()
         {
             this.Added = DateTime.Now;
+            this.Id = ObjectId.GenerateNewId().ToString();
         }
 
         [BsonId]
