@@ -24,7 +24,8 @@ namespace Models.JsonConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            string currentValue = ((T)value).ToString();
+            writer.WriteValue(currentValue);
         }
     }
 }

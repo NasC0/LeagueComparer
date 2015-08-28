@@ -2,6 +2,8 @@
 using ApiProcessing.Models.JsonConverters;
 using Models.Common;
 using Newtonsoft.Json;
+using System.Linq;
+using Helpers;
 
 namespace Models
 {
@@ -26,6 +28,36 @@ namespace Models
         public override string ToString()
         {
             return this.Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var objAsItem = obj as Item;
+            if (objAsItem == null)
+            {
+                return false;
+            }
+
+            bool areTagsEqual = CollectionEquality.CheckForEquality<string, string>(this.Tags, objAsItem.Tags, x => x);
+            bool areIdsEqual = this.ItemId == objAsItem.ItemId;
+            bool areSanitizedDescriptionsEqual = this.SanitizedDescription == objAsItem.SanitizedDescription;
+            bool areDescriptionsEqual = this.Description == objAsItem.Description;
+            bool areNamesEqual = this.Name == objAsItem.Name;
+            bool areImagesEqual = this.Image.Equals(objAsItem.Image);
+
+            bool isFromEqual = CollectionEquality.CheckForEquality<int, int>(this.From, objAsItem.From, x => x);
+            bool isIntoEqqual = CollectionEquality.CheckForEquality<int, int>(this.Into, objAsItem.Into, x => x);
+            bool areStatsEqual = CollectionEquality.CheckForEquality<Stat, double>(this.Stats, objAsItem.Stats, x => x.Value);
+            bool isGroupEqual = this.Group == objAsItem.Group;
+            bool isDepthEqual = this.Depth == objAsItem.Depth;
+
+            if (areTagsEqual && areIdsEqual && areSanitizedDescriptionsEqual && areDescriptionsEqual && areNamesEqual &&
+                areImagesEqual && isFromEqual && isIntoEqqual && areStatsEqual && isGroupEqual && isDepthEqual)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

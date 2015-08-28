@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data.Contracts;
 using Helpers;
 using Models.Common;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Data
@@ -28,7 +29,8 @@ namespace Data
             var objectType = typeof(T);
             if (!this.repositories.ContainsKey(objectType))
             {
-                var repoCollection = this.mongoDatabase.GetCollection<T>(GetCollectionStringName.GetCollectionName<T>());
+                var collectionName = GetCollectionStringName.GetCollectionName<T>();
+                var repoCollection = this.mongoDatabase.GetCollection<T>(collectionName);
                 var currentRepository = Activator.CreateInstance(typeof(MongoRepository<T>), repoCollection);
                 this.repositories.Add(objectType, currentRepository);
             }

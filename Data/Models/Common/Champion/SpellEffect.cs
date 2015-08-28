@@ -11,5 +11,25 @@ namespace Models.Common.Champion
     {
         public string Key { get; set; }
         public IEnumerable<double> Value { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            var objAsSpellEffect = obj as SpellEffect;
+
+            if (objAsSpellEffect == null)
+            {
+                return false;
+            }
+
+            bool areKeysEqual = this.Key == objAsSpellEffect.Key;
+            bool areValuesEqual = this.Value.OrderBy(v => v).SequenceEqual(objAsSpellEffect.Value.OrderBy(v => v));
+
+            if (areKeysEqual && areValuesEqual)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

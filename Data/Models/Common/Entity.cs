@@ -9,11 +9,11 @@ namespace Models.Common
         public Entity()
         {
             this.Added = DateTime.Now;
-            this.Id = ObjectId.GenerateNewId().ToString();
+            this.Id = ObjectId.GenerateNewId();
         }
 
         [BsonId]
-        public string Id { get; set; }
+        public ObjectId Id { get; set; }
 
         [BsonDateTimeOptions(Kind=DateTimeKind.Local)]
         public DateTime Added { get; set; }

@@ -46,7 +46,10 @@ namespace Data
 
         public async Task Add(IEnumerable<T> elements)
         {
-            await this.collection.InsertManyAsync(elements);
+            foreach (var item in elements)
+            {
+                await this.collection.InsertOneAsync(item);
+            }
         }
 
         public async Task Replace(T element)

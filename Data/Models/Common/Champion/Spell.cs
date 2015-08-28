@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace Models.Common.Champion
 {
@@ -22,6 +25,7 @@ namespace Models.Common.Champion
         public string CostType { get; set; }
 
         [JsonProperty("effect")]
+        [BsonElement("effect")]
         public IEnumerable<object> EffectOriginal
         {
             get
@@ -37,6 +41,7 @@ namespace Models.Common.Champion
         }
 
         [JsonIgnore]
+        [BsonIgnore]
         public IEnumerable<SpellEffect> Effect { get; set; }
         public string CooldownBurn { get; set; }
         public string Description { get; set; }
@@ -65,9 +70,10 @@ namespace Models.Common.Champion
                 }
                 else
                 {
-                    var effectListToken = effect as JToken;
-                    var effectList = JsonConvert.DeserializeObject<IEnumerable<double>>(effectListToken.ToString());
-                    currentSpellEffect.Value = effectList;
+                    var jsonParsed = JArray.FromObject(effect);
+                    var valuesList = jsonParsed.Values<double>();
+
+                    currentSpellEffect.Value = valuesList;
                 }
 
                 spellEffects.Add(currentSpellEffect);
@@ -75,6 +81,65 @@ namespace Models.Common.Champion
             }
 
             this.Effect = spellEffects;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var objAsSpell = obj as Spell;
+
+            if (objAsSpell == null)
+            {
+                return false;
+            }
+
+            bool areRangesEqual = false;
+            bool areRangesArrays = (this.Range is int[] && objAsSpell.Range is int[]);
+            bool areRangesStrings = (this.Range is string && objAsSpell.Range is string);
+
+            if (areRangesArrays)
+            {
+                var thisRangeAsArray = this.Range as int[];
+                var objRangeAsArray = objAsSpell.Range as int[];
+                areRangesEqual = thisRangeAsArray.OrderBy(r => r).SequenceEqual(objRangeAsArray.OrderBy(r => r));
+            }
+
+            if (areRangesStrings)
+            {
+                var thisRangeAsString = this.Range as string;
+                var objRangeAsString = objAsSpell.Range as string;
+                areRangesEqual = thisRangeAsString == objRangeAsString;
+            }
+
+            bool areLevelTipsEqual = this.LevelTip.Equals(objAsSpell.LevelTip);
+            bool areResourcesEqual = this.Resource == objAsSpell.Resource;
+            bool areMaxRanksEqual = this.MaxRank == objAsSpell.MaxRank;
+            bool areEffectsBurnEqual = (this.EffectBurn == null && objAsSpell.EffectBurn == null) || this.EffectBurn.OrderBy(e => e).SequenceEqual(objAsSpell.EffectBurn.OrderBy(e => e));
+            bool areImagesEqual = this.Image.Equals(objAsSpell.Image);
+            bool areCooldownsEqual = (this.Cooldown == null && objAsSpell.Cooldown == null) || this.Cooldown.OrderBy(c => c).SequenceEqual(objAsSpell.Cooldown.OrderBy(c => c));
+            bool areCostsEqual = (this.Cost == null && objAsSpell.Cost == null) || this.Cost.OrderBy(c => c).SequenceEqual(objAsSpell.Cost.OrderBy(c => c));
+            bool areVarsEqual = (this.Vars == null && objAsSpell.Vars == null) || this.Vars.OrderBy(v => v.Key).SequenceEqual(objAsSpell.Vars.OrderBy(v => v.Key));
+            bool areSanitizedDescriptionsEqual = this.SanitizedDescription == objAsSpell.SanitizedDescription;
+            bool areRangeBurnsEqual = this.RangeBurn == objAsSpell.RangeBurn;
+            bool areCostTypesEqual = this.CostType == objAsSpell.CostType;
+            bool areEffectsEqual = (this.Effect == null && objAsSpell.Effect == null) || this.Effect.OrderBy(e => e).SequenceEqual(objAsSpell.Effect.OrderBy(e => e));
+            bool areCooldownBurnsEqual = this.CooldownBurn == objAsSpell.CooldownBurn;
+            bool areDescriptionsEqual = this.Description == objAsSpell.Description;
+            bool areNamesEqual = this.Name == objAsSpell.Name;
+            bool areSanitizedTooltipsEqual = this.SanitizedTooltip == objAsSpell.SanitizedTooltip;
+            bool areKeysEqual = this.Key == objAsSpell.Key;
+            bool areCostBurnsEqual = this.CostBurn == objAsSpell.CostBurn;
+            bool areTooltipsEqual = this.Tooltip == objAsSpell.Tooltip;
+
+            if (areRangesEqual && areLevelTipsEqual && areResourcesEqual && areMaxRanksEqual &&
+                areEffectsBurnEqual && areImagesEqual && areCooldownsEqual && areCostsEqual &&
+                areVarsEqual && areSanitizedDescriptionsEqual && areRangeBurnsEqual && areCostTypesEqual &&
+                areEffectsEqual && areCooldownBurnsEqual && areDescriptionsEqual && areNamesEqual &&
+                areSanitizedTooltipsEqual && areKeysEqual && areCostBurnsEqual && areTooltipsEqual)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

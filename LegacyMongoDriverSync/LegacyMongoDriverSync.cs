@@ -1,32 +1,28 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
-using Configuration;
 using Models;
-using MongoDB.Driver;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
-using Data;
 
-namespace DatabaseSyncer
+namespace LegacyMongoDriverSync
 {
-    public class DatabaseSyncerRun
+    class LegacyMongoDriverSync
     {
-        private const string ApiKey = "ee57feb3-1da3-441d-807a-7486e0559e72";
-        private const string ConfigFileLocation = "../../config/config.json";
-
         static void Main()
         {
-            var config = ConfigurationManager.GetCurrentConfiguration(ConfigFileLocation);
-
-            IMongoClient mongoClient = new MongoClient("mongodb://kickass:314159aass@spirital.tk:1801");
-            var database = mongoClient.GetDatabase("LeagueComparer");
-            var repoFactory = new RepositoryFactory(database);
-
-            var itemsCollection = repoFactory.GetRepository<Champion>();
+            var dbClient = new MongoClient("mongodb://kickass:314159aass@spirital.tk:1801");
+            var server = dbClient.GetServer();
+            var database = server.GetDatabase("LeagueComparer");
+            var collection = database.GetCollection<Champion>("champions");
 
             string items = Task<string>.Run(() => GetItems()).Result;
 
@@ -38,10 +34,16 @@ namespace DatabaseSyncer
                                         .OrderBy(x => x.Name)
                                         .ToList();
 
-            itemsCollection.Add(resultItem).Wait();
-            var dbItems = itemsCollection.All().Result;
-            Console.WriteLine(dbItems.Count());
-            var missingItems = dbItems.Except(resultItem);
+            var resultString = JsonConvert.SerializeObject(resultItem, Formatting.Indented);
+            var bsonDocument = BsonSerializer.Deserialize<IEnumerable<BsonDocument>>(resultString);
+
+            collection.InsertBatch<BsonDocument>(bsonDocument);
+
+            var champions = collection.AsQueryable<Champion>();
+            foreach (var cham in champions)
+            {
+                Console.WriteLine(cham.Title);
+            }
         }
 
         static async Task<string> GetItems()
