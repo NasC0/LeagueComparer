@@ -3,11 +3,14 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ApiProcessing.Contracts;
 using Helpers.Exceptions;
+using log4net;
+using Logging;
 
 namespace ApiProcessing.Queries
 {
     public class QueryExecutor : IQueryExecutor
     {
+        private ILog logger = SysLogger.GetLogger(typeof(QueryExecutor));
         private HttpClient apiClient;
 
         public QueryExecutor()
@@ -43,11 +46,14 @@ namespace ApiProcessing.Queries
             var serverResponse = await this.ApiClient.GetAsync(query.GetQueryString());
             if (!serverResponse.IsSuccessStatusCode)
             {
+                this.logger.FatalFormat("Failed query execution for {0} with status code {1}", query.ObjectType, serverResponse.StatusCode);
                 throw new FailedOperationException(string.Format("Request to server failed with status code {0}", serverResponse.StatusCode));
             }
 
             var contentString = await serverResponse.Content.ReadAsStringAsync();
             var queryResponse = new QueryResponse(contentString, query.ObjectType);
+
+            this.logger.InfoFormat("Successful query execution for {0}", query.ObjectType);
             return queryResponse;
         }
     }

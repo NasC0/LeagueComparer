@@ -19,19 +19,27 @@ namespace Data
             this.repositories = new Dictionary<Type, object>();
         }
 
-        public IMongoRepository<T> GetRepository<T>() where T : Entity
+        public IRepository<T> GetRepository<T>() where T : Entity
         {
             return this.GetSavedRepository<T>();
         }
 
-        private IMongoRepository<T> GetSavedRepository<T>() where T : Entity
+        public IRepository<BsonDocument> GetRepository(string name)
+        {
+            var repoCollection = this.mongoDatabase.GetCollection<BsonDocument>(name);
+            var genericRepository = new MongoRepository<BsonDocument>(repoCollection);
+
+            return genericRepository;
+        }
+
+        private IRepository<T> GetSavedRepository<T>() where T : Entity
         {
             var objectType = typeof(T);
             if (!this.repositories.ContainsKey(objectType))
             {
                 var collectionName = GetCollectionStringName.GetCollectionName<T>();
                 var repoCollection = this.mongoDatabase.GetCollection<T>(collectionName);
-                var currentRepository = Activator.CreateInstance(typeof(MongoRepository<T>), repoCollection);
+                var currentRepository = Activator.CreateInstance(typeof(MongoPocoRepository<T>), repoCollection);
                 this.repositories.Add(objectType, currentRepository);
             }
 

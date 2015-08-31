@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using ApiProcessing.Contracts;
 using ApiProcessing.Enumerations;
 using Helpers;
+using log4net;
+using Logging;
 
 namespace ApiProcessing.Queries
 {
@@ -16,6 +18,7 @@ namespace ApiProcessing.Queries
         private readonly QueryParameter RequiredMasteryParameter = new QueryParameter("masteryListData", "all");
         private readonly QueryParameter RequiredApiKeyParameter;
 
+        private ILog logger = SysLogger.GetLogger(typeof(QueryBuilder));
         private string apiKey;
         private string host;
 
@@ -64,12 +67,14 @@ namespace ApiProcessing.Queries
 
         public IQuery BuildQuery(ObjectType objectType)
         {
+            this.LogQueryBuilding(objectType);
             List<QueryParameter> parameters = new List<QueryParameter>();
             return this.BuildQuery(objectType, parameters);
         }
 
         public IQuery BuildQuery(ObjectType objectType, ICollection<QueryParameter> parameters)
         {
+            this.LogQueryBuilding(objectType);
             ICollection<QueryParameter> processedParameters = null;
 
             if (objectType == ObjectType.Item)
@@ -119,6 +124,11 @@ namespace ApiProcessing.Queries
             parameters.Add(RequiredMasteryParameter);
 
             return parameters;
+        }
+
+        private void LogQueryBuilding(ObjectType queryType)
+        {
+            this.logger.InfoFormat("Building {0} query", queryType.ToString());
         }
     }
 }

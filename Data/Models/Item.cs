@@ -4,11 +4,17 @@ using Models.Common;
 using Newtonsoft.Json;
 using System.Linq;
 using Helpers;
+using System;
 
 namespace Models
 {
     public class Item : Entity
     {
+        public Item()
+        {
+            this.Available = true;
+        }
+
         public IEnumerable<string> Tags { get; set; }
 
         [JsonProperty("id")]
@@ -24,6 +30,7 @@ namespace Models
         public IEnumerable<Stat> Stats { get; set; }
         public string Group { get; set; }
         public int Depth { get; set; }
+        public bool Available { get; set; }
 
         public override string ToString()
         {
@@ -58,6 +65,17 @@ namespace Models
             }
 
             return false;
+        }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+            hash = hash * 23 + this.ItemId.GetHashCode();
+            hash = hash * 23 + this.Gold.Total.GetHashCode();
+            hash = hash * 23 + this.Depth.GetHashCode();
+            hash = hash * 23 + this.Name.GetHashCode();
+
+            return hash;
         }
     }
 }

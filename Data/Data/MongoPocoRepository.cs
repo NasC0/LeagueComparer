@@ -1,25 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Data.Contracts;
+using Models.Common;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Data
 {
-    public class MongoRepository<T> : IRepository<T> where T: BsonDocument
+    public class MongoPocoRepository<T> : IMongoRepository<T> where T : Entity
     {
-        private const string IdFieldName = "_id";
-
         private IMongoCollection<T> collection;
-        private FilterDefinitionBuilder<T> filterDefinitionBuilder;
 
-        public MongoRepository(IMongoCollection<T> collection)
+        public MongoPocoRepository(IMongoCollection<T> collection)
         {
             this.collection = collection;
-            this.filterDefinitionBuilder = new FilterDefinitionBuilder<T>();
         }
 
         public async Task<IEnumerable<T>> All()
@@ -56,51 +52,48 @@ namespace Data
             }
         }
 
-        public async Task Replace(T element)
+        public async Task Replace(T element, Expression<Func<T, bool>> matchElement)
         {
-            var filter = this.GetIdFilterDefinition(element);
+            var updateOptions = new UpdateOptions()
+            {
+                IsUpsert = true
+            };
 
-            await this.collection.ReplaceOneAsync(filter, element);
+            await this.collection.ReplaceOneAsync<T>(matchElement, element);
         }
 
-        public async Task Replace(IEnumerable<T> elements)
+        public async Task Replace(IEnumerable<T> elements, Expression<Func<T, bool>> matchElements)
         {
-            foreach (var element in elements)
+            var updateOptions = new UpdateOptions()
             {
-                var filter = this.GetIdFilterDefinition(element);
-                await this.collection.ReplaceOneAsync(filter, element);
+                IsUpsert = true
+            };
+
+            foreach (var item in elements)
+            {
+                await this.collection.ReplaceOneAsync<T>(matchElements, item, updateOptions);
             }
         }
 
-        public async Task Update(T element, UpdateDefinition<T> updateDefinition)
+        public async Task Update(T element, Expression<Func<T, bool>> matchElements, UpdateDefinition<T> updateDefinition)
         {
-            var filter = this.GetIdFilterDefinition(element);
-            await this.collection.UpdateOneAsync(filter, updateDefinition);
+            await this.collection.UpdateOneAsync<T>(matchElements, updateDefinition);
         }
 
-        public async Task<T> Remove(T element)
+        public async Task<T> Remove(T element, Expression<Func<T, bool>> matchElements)
         {
-            var filter = this.GetIdFilterDefinition(element);
-            await this.collection.DeleteOneAsync(filter);
+            await this.collection.DeleteOneAsync<T>(matchElements);
             return element;
         }
 
-        public async Task<IEnumerable<T>> Remove(IEnumerable<T> elements)
+        public async Task<IEnumerable<T>> Remove(IEnumerable<T> elements, Expression<Func<T, bool>> matchElements)
         {
-            foreach (var element in elements)
+            foreach (var item in elements)
             {
-                var filter = this.GetIdFilterDefinition(element);
-                await this.collection.DeleteOneAsync(filter);
+                await this.collection.DeleteOneAsync<T>(matchElements);
             }
 
             return elements;
-        }
-
-        private FilterDefinition<T> GetIdFilterDefinition(T element)
-        {
-            var elementId = element.GetValue(IdFieldName);
-            var filter = this.filterDefinitionBuilder.Eq(x => x.GetValue(IdFieldName), elementId);
-            return filter;
         }
     }
 }
