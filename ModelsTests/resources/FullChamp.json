@@ -1,0 +1,500 @@
+{
+   "tags": [
+      "Fighter",
+      "Tank"
+   ],
+   "id": 266,
+   "title": "the Darkin Blade",
+   "stats": {
+      "attackrange": 150,
+      "mpperlevel": 45,
+      "mp": 105.6,
+      "attackdamage": 60.376,
+      "hp": 537.8,
+      "hpperlevel": 85,
+      "attackdamageperlevel": 3.2,
+      "armor": 24.384,
+      "mpregenperlevel": 0,
+      "hpregen": 6.59,
+      "critperlevel": 0,
+      "spellblockperlevel": 1.25,
+      "mpregen": 0,
+      "attackspeedperlevel": 3,
+      "spellblock": 32.1,
+      "movespeed": 345,
+      "attackspeedoffset": -0.04,
+      "crit": 0,
+      "hpregenperlevel": 0.5,
+      "armorperlevel": 3.8
+   },
+   "name": "Aatrox",
+   "passive": {
+      "sanitizedDescription": "When using an ability that costs Health, Aatrox stores the self-inflicted damage into the Blood Well. Upon taking fatal damage, Aatrox extracts the blood from the well and recovers it as Health over a brief duration. Additionally, Aatrox gains 1% Attack Speed for every 2% blood that is in the well.",
+      "description": "When using an ability that costs Health, Aatrox stores the self-inflicted damage into the Blood Well. Upon taking fatal damage, Aatrox extracts the blood from the well and recovers it as Health over a brief duration. Additionally, Aatrox gains 1% Attack Speed for every 2% blood that is in the well.",
+      "name": "Blood Well",
+      "image": {
+         "w": 48,
+         "full": "Aatrox_Passive.png",
+         "sprite": "passive0.png",
+         "group": "passive",
+         "h": 48,
+         "y": 0,
+         "x": 0
+      }
+   },
+   "image": {
+      "w": 48,
+      "full": "Aatrox.png",
+      "sprite": "champion0.png",
+      "group": "champion",
+      "h": 48,
+      "y": 0,
+      "x": 0
+   },
+   "spells": [
+      {
+         "range": [
+            600,
+            600,
+            600,
+            600,
+            600
+         ],
+         "leveltip": {
+            "effect": [
+               "{{ e1 }} -> {{ e1NL }}",
+               "{{ cooldown }} -> {{ cooldownnNL }}"
+            ],
+            "label": [
+               "Damage",
+               "Cooldown"
+            ]
+         },
+         "resource": "{{ e3 }}% of current Health ",
+         "maxrank": 5,
+         "effectBurn": [
+            "",
+            "70/115/160/205/250",
+            "22/20/18/16/14",
+            "10",
+            "225",
+            "1"
+         ],
+         "image": {
+            "w": 48,
+            "full": "AatroxQ.png",
+            "sprite": "spell0.png",
+            "group": "spell",
+            "h": 48,
+            "y": 48,
+            "x": 192
+         },
+         "cooldown": [
+            16,
+            15,
+            14,
+            13,
+            12
+         ],
+         "cost": [
+            0,
+            0,
+            0,
+            0,
+            0
+         ],
+         "vars": [{
+            "link": "bonusattackdamage",
+            "coeff": [0.6],
+            "key": "a1"
+         }],
+         "sanitizedDescription": "Aatrox takes flight and slams down at a targeted location, dealing damage and knocking up enemies at the center of impact.",
+         "rangeBurn": "600",
+         "costType": "pofcurrentHealth",
+         "effect": [
+            null,
+            [
+               70,
+               115,
+               160,
+               205,
+               250
+            ],
+            [
+               22,
+               20,
+               18,
+               16,
+               14
+            ],
+            [
+               10,
+               10,
+               10,
+               10,
+               10
+            ],
+            [
+               225,
+               225,
+               225,
+               225,
+               225
+            ],
+            [
+               1,
+               1,
+               1,
+               1,
+               1
+            ]
+         ],
+         "cooldownBurn": "16/15/14/13/12",
+         "description": "Aatrox takes flight and slams down at a targeted location, dealing damage and knocking up enemies at the center of impact.",
+         "name": "Dark Flight",
+         "sanitizedTooltip": "Aatrox takes flight and slams down at a targeted location, dealing {{ e1 }} (+{{ a1 }}) physical damage to all nearby enemies and knocking up targets at the center of impact for {{ e5 }} second.",
+         "key": "AatroxQ",
+         "costBurn": "0",
+         "tooltip": "Aatrox takes flight and slams down at a targeted location, dealing {{ e1 }}<span class=\"colorF88017\"> (+{{ a1 }})<\/span> physical damage to all nearby enemies and knocking up targets at the center of impact for {{ e5 }} second."
+      },
+      {
+         "range": "self",
+         "leveltip": {
+            "effect": [
+               "{{ e3 }} -> {{ e3NL }}",
+               "{{ e2 }} -> {{ e2NL }}"
+            ],
+            "label": [
+               "Heal",
+               "Bonus Damage"
+            ]
+         },
+         "resource": "No Cost",
+         "maxrank": 5,
+         "effectBurn": [
+            "",
+            "200",
+            "60/95/130/165/200",
+            "20/25/30/35/40",
+            "25",
+            "50",
+            "0.5"
+         ],
+         "image": {
+            "w": 48,
+            "full": "AatroxW.png",
+            "sprite": "spell0.png",
+            "group": "spell",
+            "h": 48,
+            "y": 48,
+            "x": 240
+         },
+         "cooldown": [
+            0.5,
+            0.5,
+            0.5,
+            0.5,
+            0.5
+         ],
+         "cost": [
+            0,
+            0,
+            0,
+            0,
+            0
+         ],
+         "vars": [
+            {
+               "link": "bonusattackdamage",
+               "coeff": [0.25],
+               "key": "a1"
+            },
+            {
+               "link": "bonusattackdamage",
+               "coeff": [1],
+               "key": "a2"
+            }
+         ],
+         "sanitizedDescription": "While toggled on Aatrox deals bonus damage every third subsequent attack at the expense of his own Health. While toggled off Aatrox restores Health every third subsequent attack.",
+         "rangeBurn": "self",
+         "costType": "NoCost",
+         "effect": [
+            null,
+            [
+               200,
+               200,
+               200,
+               200,
+               200
+            ],
+            [
+               60,
+               95,
+               130,
+               165,
+               200
+            ],
+            [
+               20,
+               25,
+               30,
+               35,
+               40
+            ],
+            [
+               25,
+               25,
+               25,
+               25,
+               25
+            ],
+            [
+               50,
+               50,
+               50,
+               50,
+               50
+            ],
+            [
+               0.5,
+               0.5,
+               0.5,
+               0.5,
+               0.5
+            ]
+         ],
+         "cooldownBurn": "0.5",
+         "description": "While toggled on Aatrox deals bonus damage every third subsequent attack at the expense of his own Health. While toggled off Aatrox restores Health every third subsequent attack.",
+         "name": "Blood Thirst / Blood Price",
+         "sanitizedTooltip": "While toggled off Aatrox benefits from Blood Thirst, while toggled on Blood Price is activated and removes Blood Thirst. Blood Thirst: Every third attack, Aatrox restores {{ e3 }} (+{{ a1 }}) Health, increased by {{ e1 }}% ({{ f5 }}) when below half Health. Blood Price: Every third attack, Aatrox deals {{ e2 }} (+{{ a2 }}) bonus physical damage and loses {{ f4 }} Health.",
+         "key": "AatroxW",
+         "costBurn": "0",
+         "tooltip": "While toggled off Aatrox benefits from Blood Thirst, while toggled on Blood Price is activated and removes Blood Thirst.<br><br><span class=\"colorFF9900\">Blood Thirst: <\/span>Every third attack, Aatrox restores {{ e3 }}<span class=\"colorF88017\"> (+{{ a1 }})<\/span> Health, increased by {{ e1 }}% ({{ f5 }}) when below half Health.<br><br><span class=\"colorFF9900\">Blood Price: <\/span>Every third attack, Aatrox deals {{ e2 }}<span class=\"colorF88017\"> (+{{ a2 }})<\/span> <\/span>bonus physical damage and loses <span class=\"colorCC3300\">{{ f4 }}<\/span> Health."
+      },
+      {
+         "range": [
+            1000,
+            1000,
+            1000,
+            1000,
+            1000
+         ],
+         "leveltip": {
+            "effect": [
+               "{{ e1 }} -> {{ e1NL }}",
+               "{{ e4 }} -> {{ e4NL }}",
+               "{{ cooldown }} -> {{ cooldownnNL }}"
+            ],
+            "label": [
+               "Damage",
+               "Duration",
+               "Cooldown"
+            ]
+         },
+         "resource": "{{ e5 }}% of current Health ",
+         "maxrank": 5,
+         "effectBurn": [
+            "",
+            "75/110/145/180/215",
+            "40",
+            "15",
+            "1.75/2/2.25/2.5/2.75",
+            "5"
+         ],
+         "image": {
+            "w": 48,
+            "full": "AatroxE.png",
+            "sprite": "spell0.png",
+            "group": "spell",
+            "h": 48,
+            "y": 48,
+            "x": 288
+         },
+         "cooldown": [
+            12,
+            11,
+            10,
+            9,
+            8
+         ],
+         "cost": [
+            0,
+            0,
+            0,
+            0,
+            0
+         ],
+         "vars": [
+            {
+               "link": "spelldamage",
+               "coeff": [0.6],
+               "key": "a1"
+            },
+            {
+               "link": "bonusattackdamage",
+               "coeff": [0.6],
+               "key": "a2"
+            }
+         ],
+         "sanitizedDescription": "Aatrox unleashes the power of his blade, dealing damage to all enemies hit and slowing them.",
+         "rangeBurn": "1000",
+         "costType": "pofcurrentHealth",
+         "effect": [
+            null,
+            [
+               75,
+               110,
+               145,
+               180,
+               215
+            ],
+            [
+               40,
+               40,
+               40,
+               40,
+               40
+            ],
+            [
+               15,
+               15,
+               15,
+               15,
+               15
+            ],
+            [
+               1.75,
+               2,
+               2.25,
+               2.5,
+               2.75
+            ],
+            [
+               5,
+               5,
+               5,
+               5,
+               5
+            ]
+         ],
+         "cooldownBurn": "12/11/10/9/8",
+         "description": "Aatrox unleashes the power of his blade, dealing damage to all enemies hit and slowing them.",
+         "name": "Blades of Torment",
+         "sanitizedTooltip": "Aatrox unleashes the power of his blade, dealing {{ e1 }} (+{{ a1 }}) (+{{ a2 }}) Magic Damage to all enemies hit and slowing them by {{ e2 }}% for {{ e4 }} seconds.",
+         "key": "AatroxE",
+         "costBurn": "0",
+         "tooltip": "Aatrox unleashes the power of his blade, dealing {{ e1 }} <span class=\"color99FF99\">(+{{ a1 }}) <span class=\"colorF88017\">(+{{ a2 }})<\/span><\/span> Magic Damage to all enemies hit and slowing them by {{ e2 }}% for {{ e4 }} seconds."
+      },
+      {
+         "range": [
+            550,
+            550,
+            550
+         ],
+         "leveltip": {
+            "effect": [
+               "{{ e2 }} -> {{ e2NL }}",
+               "{{ e3 }}% -> {{ e3NL }}%",
+               "{{ cooldown }} -> {{ cooldownnNL }}"
+            ],
+            "label": [
+               "Damage",
+               "Attack Speed",
+               "Cooldown"
+            ]
+         },
+         "resource": "No Cost",
+         "maxrank": 3,
+         "effectBurn": [
+            "",
+            "12",
+            "200/300/400",
+            "40/50/60",
+            "10",
+            "100/175/250",
+            "50/65/80",
+            "20"
+         ],
+         "image": {
+            "w": 48,
+            "full": "AatroxR.png",
+            "sprite": "spell0.png",
+            "group": "spell",
+            "h": 48,
+            "y": 48,
+            "x": 336
+         },
+         "cooldown": [
+            100,
+            85,
+            70
+         ],
+         "cost": [
+            0,
+            0,
+            0
+         ],
+         "vars": [{
+            "link": "spelldamage",
+            "coeff": [1],
+            "key": "a1"
+         }],
+         "sanitizedDescription": "Aatrox draws in the blood of his foes, damaging all nearby enemy champions around him and gaining increased Attack Speed and bonus Attack Range for a short duration.",
+         "rangeBurn": "550",
+         "costType": "NoCost",
+         "effect": [
+            null,
+            [
+               12,
+               12,
+               12
+            ],
+            [
+               200,
+               300,
+               400
+            ],
+            [
+               40,
+               50,
+               60
+            ],
+            [
+               10,
+               10,
+               10
+            ],
+            [
+               100,
+               175,
+               250
+            ],
+            [
+               50,
+               65,
+               80
+            ],
+            [
+               20,
+               20,
+               20
+            ]
+         ],
+         "cooldownBurn": "100/85/70",
+         "description": "Aatrox draws in the blood of his foes, damaging all nearby enemy champions around him and gaining increased Attack Speed and bonus Attack Range for a short duration.",
+         "name": "Massacre",
+         "sanitizedTooltip": "Aatrox draws in the blood of his foes, dealing {{ e2 }} (+{{ a1 }}) magic damage to all enemy champions around him. Massacre then fills Aatrox's Blood Well by {{ e7 }}% for each champion hit and grants him {{ e3 }}% attack speed and 175 attack range for 12 seconds.",
+         "key": "AatroxR",
+         "costBurn": "0",
+         "tooltip": "Aatrox draws in the blood of his foes, dealing {{ e2 }} <span class=\"color99FF99\">(+{{ a1 }})<\/span> magic damage to all enemy champions around him. Massacre then fills Aatrox's Blood Well by {{ e7 }}% for each champion hit and grants him {{ e3 }}% attack speed and 175 attack range for 12 seconds."
+      }
+   ],
+   "partype": "BloodWell",
+   "key": "Aatrox",
+   "info": {
+      "defense": 4,
+      "magic": 3,
+      "difficulty": 4,
+      "attack": 8
+   }
+}

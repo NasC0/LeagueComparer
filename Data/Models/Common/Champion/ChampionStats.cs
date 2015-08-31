@@ -1,5 +1,7 @@
-﻿namespace Models.Common.Champion
+﻿using System;
+namespace Models.Common.Champion
 {
+    [Serializable]
     public class ChampionStats
     {
         public double AttackRange { get; set; }

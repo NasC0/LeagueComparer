@@ -7,6 +7,7 @@ using System;
 
 namespace Models.Common.Champion
 {
+    [Serializable]
     public class Spell
     {
         private IEnumerable<object> effectOriginal;
@@ -53,34 +54,41 @@ namespace Models.Common.Champion
 
         public void SetEffect(IEnumerable<object> effects)
         {
-            List<SpellEffect> spellEffects = new List<SpellEffect>();
-            int spellEffectsCounter = 0;
-
-            foreach (var effect in effects)
+            if (effects == null)
             {
-                string key = "e" + spellEffectsCounter;
-                var currentSpellEffect = new SpellEffect
-                {
-                    Key = key
-                };
-
-                if (effect == null)
-                {
-                    currentSpellEffect.Value = null;
-                }
-                else
-                {
-                    var jsonParsed = JArray.FromObject(effect);
-                    var valuesList = jsonParsed.Values<double>();
-
-                    currentSpellEffect.Value = valuesList;
-                }
-
-                spellEffects.Add(currentSpellEffect);
-                spellEffectsCounter++;
+                this.Effect = null;
             }
+            else
+            {
+                List<SpellEffect> spellEffects = new List<SpellEffect>();
+                int spellEffectsCounter = 0;
 
-            this.Effect = spellEffects;
+                foreach (var effect in effects)
+                {
+                    string key = "e" + spellEffectsCounter;
+                    var currentSpellEffect = new SpellEffect
+                    {
+                        Key = key
+                    };
+
+                    if (effect == null)
+                    {
+                        currentSpellEffect.Value = null;
+                    }
+                    else
+                    {
+                        var jsonParsed = JArray.FromObject(effect);
+                        var valuesList = jsonParsed.Values<double>();
+
+                        currentSpellEffect.Value = valuesList.ToList();
+                    }
+
+                    spellEffects.Add(currentSpellEffect);
+                    spellEffectsCounter++;
+                }
+
+                this.Effect = spellEffects;
+            }
         }
 
         public override bool Equals(object obj)

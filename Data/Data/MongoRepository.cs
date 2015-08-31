@@ -54,25 +54,25 @@ namespace Data
 
         public async Task Replace(T element)
         {
-            await this.collection.ReplaceOneAsync<T>(x => x.Id == element.Id, element);
+            await this.collection.ReplaceOneAsync<T>(x => x._id == element._id, element);
         }
 
         public async Task Replace(IEnumerable<T> elements)
         {
             foreach (var item in elements)
             {
-                await this.collection.ReplaceOneAsync<T>(x => x.Id == item.Id, item);
+                await this.collection.ReplaceOneAsync<T>(x => x._id == item._id, item);
             }
         }
 
         public async Task Update(T element, UpdateDefinition<T> updateDefinition)
         {
-            await this.collection.UpdateOneAsync<T>(x => x.Id == element.Id, updateDefinition);
+            await this.collection.UpdateOneAsync<T>(x => x._id == element._id, updateDefinition);
         }
 
         public async Task<T> Remove(T element)
         {
-            await this.collection.DeleteOneAsync<T>(x => x.Id == element.Id);
+            await this.collection.DeleteOneAsync<T>(x => x._id == element._id);
             return element;
         }
 
@@ -80,7 +80,7 @@ namespace Data
         {
             foreach (var item in elements)
             {
-                await this.collection.DeleteOneAsync<T>(x => x.Id == item.Id);
+                await this.collection.DeleteOneAsync<T>(x => x._id == item._id);
             }
 
             return elements;

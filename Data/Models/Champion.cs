@@ -11,11 +11,13 @@ using Newtonsoft.Json;
 
 namespace Models
 {
+    [Serializable]
     public class Champion : Entity
     {
         public IEnumerable<String> Tags { get; set; }
 
         [JsonProperty("id")]
+        [BsonElement("id")]
         public int ChampionId { get; set; }
         public ChampionStats Stats { get; set; }
         public string Name { get; set; }
@@ -24,7 +26,6 @@ namespace Models
         public IEnumerable<Spell> Spells { get; set; }
         [JsonConverter(typeof(GenericEnumConverter<ChampionResourceType>))]
         public ChampionResourceType Partype { get; set; }
-        public string Lore { get; set; }
         public string Title { get; set; }
 
         public override string ToString()
@@ -49,12 +50,11 @@ namespace Models
             bool areImagesEqual = this.Image.Equals(objAsChamp.Image);
             bool areSpellsEqual = CollectionEquality.CheckForEquality<Spell, string>(this.Spells, objAsChamp.Spells, x => x.Key);
             bool arePartypesEqual = this.Partype == objAsChamp.Partype;
-            bool isLoreEqual = this.Lore == objAsChamp.Lore;
             bool areTitlesEqual = this.Title == objAsChamp.Title;
 
             if (areTagsEqual && areIDsEqual && areStatsEqual && areNamesEqual &&
-                arePassivesEqual && areImagesEqual && areSpellsEqual && arePartypesEqual &&
-                isLoreEqual && areTitlesEqual)
+                arePassivesEqual && areImagesEqual && areSpellsEqual && arePartypesEqual
+                && areTitlesEqual)
             {
                 return true;
             }

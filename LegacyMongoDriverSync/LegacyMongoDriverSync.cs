@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
@@ -40,10 +41,14 @@ namespace LegacyMongoDriverSync
             collection.InsertBatch<BsonDocument>(bsonDocument);
 
             var champions = collection.AsQueryable<Champion>();
+            int champCount = 0;
             foreach (var cham in champions)
             {
                 Console.WriteLine(cham.Title);
+                champCount++;
             }
+
+            Console.WriteLine(champCount);
         }
 
         static async Task<string> GetItems()

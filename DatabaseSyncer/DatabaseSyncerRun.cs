@@ -26,14 +26,14 @@ namespace DatabaseSyncer
             var database = mongoClient.GetDatabase("LeagueComparer");
             var repoFactory = new RepositoryFactory(database);
 
-            var itemsCollection = repoFactory.GetRepository<Champion>();
+            var itemsCollection = repoFactory.GetRepository<Item>();
 
             string items = Task<string>.Run(() => GetItems()).Result;
 
             var jsonObject = JObject.Parse(items);
             var jsonChampionString = jsonObject["data"].ToString();
 
-            var resultItem = JsonConvert.DeserializeObject<IDictionary<string, Champion>>(jsonChampionString)
+            var resultItem = JsonConvert.DeserializeObject<IDictionary<string, Item>>(jsonChampionString)
                                         .Select(x => x.Value)
                                         .OrderBy(x => x.Name)
                                         .ToList();
@@ -47,7 +47,7 @@ namespace DatabaseSyncer
         static async Task<string> GetItems()
         {
             var httpClient = new HttpClient();
-            var response = await httpClient.GetAsync("https://global.api.pvp.net/api/lol/static-data/euw/v1.2/champion?champData=all&api_key=ee57feb3-1da3-441d-807a-7486e0559e72");
+            var response = await httpClient.GetAsync("https://global.api.pvp.net/api/lol/static-data/euw/v1.2/item?itemListData=all&api_key=ee57feb3-1da3-441d-807a-7486e0559e72");
             return await response.Content.ReadAsStringAsync();
         }
     }

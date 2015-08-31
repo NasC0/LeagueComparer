@@ -1,7 +1,9 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
+﻿using System;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 namespace Models.Common
 {
+    [Serializable]
     public class Image
     {
         [JsonProperty("w")]
