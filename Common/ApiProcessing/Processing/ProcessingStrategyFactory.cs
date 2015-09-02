@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ApiProcessing.Contracts;
 using ApiProcessing.Enumerations;
 using Data.Contracts;
@@ -14,6 +10,8 @@ namespace ApiProcessing.Processing
 {
     public class ProcessingStrategyFactory : IProcessingStrategyFactory
     {
+        private const string ChampionsCollectionName = "champions";
+
         private ILog logger = SysLogger.GetLogger(typeof(ProcessingStrategyFactory));
         private IRepositoryFactory repoFactory;
 
@@ -22,16 +20,17 @@ namespace ApiProcessing.Processing
             this.repoFactory = repoFactory;
         }
 
-        public IGameObjectProcessingStrategy GetProcessingStrategy(IQueryResponse queryResponse)
+        public IGameObjectProcessingStrategy GetProcessingStrategy(ObjectType queryResponseType)
         {
             IGameObjectProcessingStrategy currentStrategy = null;
 
-            switch (queryResponse.QueryObjectType)
+            switch (queryResponseType)
             {
                 case ObjectType.Champion:
+                    currentStrategy = this.GetChampionStrategy();
                     break;
                 case ObjectType.Item:
-                    currentStrategy = this.GetItemStrategy(queryResponse);
+                    currentStrategy = this.GetItemStrategy();
                     break;
                 case ObjectType.Rune:
                     break;
@@ -46,12 +45,15 @@ namespace ApiProcessing.Processing
             return currentStrategy;
         }
 
-        private IGameObjectProcessingStrategy GetChampionStrategy(IQueryResponse queryResponse)
+        private IGameObjectProcessingStrategy GetChampionStrategy()
         {
-            throw new NotImplementedException();
+            var championsBsonRepo = this.repoFactory.GetRepository(ChampionsCollectionName);
+            var championsObjectsRepo = this.repoFactory.GetRepository<Champion>();
+            var championsProcessingStrategy = new ChampionProcessingStrategy(championsBsonRepo, championsObjectsRepo);
+            return championsProcessingStrategy;
         }
 
-        private IGameObjectProcessingStrategy GetItemStrategy(IQueryResponse queryResponse)
+        private IGameObjectProcessingStrategy GetItemStrategy()
         {
             var itemsRepo = this.repoFactory.GetRepository<Item>();
             var itemsProcessingStrategy = new ItemProcessingStrategy(itemsRepo);

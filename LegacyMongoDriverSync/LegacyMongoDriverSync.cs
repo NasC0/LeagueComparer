@@ -32,11 +32,16 @@ namespace LegacyMongoDriverSync
 
             var resultItem = JsonConvert.DeserializeObject<IDictionary<string, Champion>>(jsonChampionString)
                                         .Select(x => x.Value)
-                                        .OrderBy(x => x.Name)
+                                        .OrderBy(x => x.ChampionId)
                                         .ToList();
 
+            foreach (var champ in resultItem)
+            {
+                champ._id = ObjectId.GenerateNewId();
+            }
+
             var resultString = JsonConvert.SerializeObject(resultItem, Formatting.Indented);
-            var bsonDocument = BsonSerializer.Deserialize<IEnumerable<BsonDocument>>(resultString);
+            var bsonDocument = BsonSerializer.Deserialize<IEnumerable<BsonDocument>>(resultString).ToList();
 
             collection.InsertBatch<BsonDocument>(bsonDocument);
 

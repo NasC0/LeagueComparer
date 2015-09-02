@@ -1,7 +1,9 @@
-﻿namespace ApiProcessing.Contracts
+﻿using ApiProcessing.Enumerations;
+
+namespace ApiProcessing.Contracts
 {
     public interface IProcessingStrategyFactory
     {
-        IGameObjectProcessingStrategy GetProcessingStrategy(IQueryResponse queryResponse);
+        IGameObjectProcessingStrategy GetProcessingStrategy(ObjectType queryResponseType);
     }
 }

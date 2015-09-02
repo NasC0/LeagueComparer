@@ -69,7 +69,6 @@ namespace Models
             hash = hash * 23 + this.Name.GetHashCode();
             hash = hash * 23 + this.Title.GetHashCode();
             hash = hash * 23 + this.Passive.Name.GetHashCode();
-            hash = hash * 23 + this.Tags.Sum(x => x.GetHashCode());
 
             return hash;
         }

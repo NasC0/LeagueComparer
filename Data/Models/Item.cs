@@ -30,7 +30,6 @@ namespace Models
         public IEnumerable<Stat> Stats { get; set; }
         public string Group { get; set; }
         public int Depth { get; set; }
-        public bool Available { get; set; }
 
         public override string ToString()
         {

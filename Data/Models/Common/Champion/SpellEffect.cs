@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Helpers;
 using Models.JsonConverters;
 using Newtonsoft.Json;
 
@@ -22,7 +23,7 @@ namespace Models.Common.Champion
             }
 
             bool areKeysEqual = this.Key == objAsSpellEffect.Key;
-            bool areValuesEqual = this.Value.OrderBy(v => v).SequenceEqual(objAsSpellEffect.Value.OrderBy(v => v));
+            bool areValuesEqual = CollectionEquality.CheckForEquality<double, double>(this.Value, objAsSpellEffect.Value, v => v);
 
             if (areKeysEqual && areValuesEqual)
             {

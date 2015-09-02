@@ -4,6 +4,8 @@ using Newtonsoft.Json.Linq;
 using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using System;
+using System.Collections;
+using Helpers;
 
 namespace Models.Common.Champion
 {
@@ -101,14 +103,17 @@ namespace Models.Common.Champion
             }
 
             bool areRangesEqual = false;
-            bool areRangesArrays = (this.Range is int[] && objAsSpell.Range is int[]);
+            bool areRangesArrays = (this.Range is IEnumerable<object> && objAsSpell.Range is IEnumerable<object>);
             bool areRangesStrings = (this.Range is string && objAsSpell.Range is string);
 
             if (areRangesArrays)
             {
-                var thisRangeAsArray = this.Range as int[];
-                var objRangeAsArray = objAsSpell.Range as int[];
-                areRangesEqual = thisRangeAsArray.OrderBy(r => r).SequenceEqual(objRangeAsArray.OrderBy(r => r));
+                var thisRangeAsArray = this.Range as IEnumerable<object>;
+                var thisRangeAsDoublesArray = thisRangeAsArray.Select(r => Int32.Parse(r.ToString()));
+                var objRangeAsArray = objAsSpell.Range as IEnumerable<object>;
+                var objRangeAsDoublesArray = objRangeAsArray.Select(r => Int32.Parse(r.ToString()));
+
+                areRangesEqual = thisRangeAsDoublesArray.OrderBy(r => r).SequenceEqual(objRangeAsDoublesArray.OrderBy(r => r));
             }
 
             if (areRangesStrings)
@@ -121,15 +126,15 @@ namespace Models.Common.Champion
             bool areLevelTipsEqual = this.LevelTip.Equals(objAsSpell.LevelTip);
             bool areResourcesEqual = this.Resource == objAsSpell.Resource;
             bool areMaxRanksEqual = this.MaxRank == objAsSpell.MaxRank;
-            bool areEffectsBurnEqual = (this.EffectBurn == null && objAsSpell.EffectBurn == null) || this.EffectBurn.OrderBy(e => e).SequenceEqual(objAsSpell.EffectBurn.OrderBy(e => e));
+            bool areEffectsBurnEqual = CollectionEquality.CheckForEquality<string, string>(this.EffectBurn, objAsSpell.EffectBurn, e => e);
             bool areImagesEqual = this.Image.Equals(objAsSpell.Image);
-            bool areCooldownsEqual = (this.Cooldown == null && objAsSpell.Cooldown == null) || this.Cooldown.OrderBy(c => c).SequenceEqual(objAsSpell.Cooldown.OrderBy(c => c));
-            bool areCostsEqual = (this.Cost == null && objAsSpell.Cost == null) || this.Cost.OrderBy(c => c).SequenceEqual(objAsSpell.Cost.OrderBy(c => c));
-            bool areVarsEqual = (this.Vars == null && objAsSpell.Vars == null) || this.Vars.OrderBy(v => v.Key).SequenceEqual(objAsSpell.Vars.OrderBy(v => v.Key));
+            bool areCooldownsEqual = CollectionEquality.CheckForEquality<double, double>(this.Cooldown, objAsSpell.Cooldown, c => c);
+            bool areCostsEqual = CollectionEquality.CheckForEquality<int, int>(this.Cost, objAsSpell.Cost, c => c);
+            bool areVarsEqual = CollectionEquality.CheckForEquality<SpellVars, string>(this.Vars, objAsSpell.Vars, v => v.Key);
             bool areSanitizedDescriptionsEqual = this.SanitizedDescription == objAsSpell.SanitizedDescription;
             bool areRangeBurnsEqual = this.RangeBurn == objAsSpell.RangeBurn;
             bool areCostTypesEqual = this.CostType == objAsSpell.CostType;
-            bool areEffectsEqual = (this.Effect == null && objAsSpell.Effect == null) || this.Effect.OrderBy(e => e).SequenceEqual(objAsSpell.Effect.OrderBy(e => e));
+            bool areEffectsEqual = CollectionEquality.CheckForEquality<SpellEffect, string>(this.Effect, objAsSpell.Effect, e => e.Key);
             bool areCooldownBurnsEqual = this.CooldownBurn == objAsSpell.CooldownBurn;
             bool areDescriptionsEqual = this.Description == objAsSpell.Description;
             bool areNamesEqual = this.Name == objAsSpell.Name;

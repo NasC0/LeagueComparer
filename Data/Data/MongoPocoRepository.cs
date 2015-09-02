@@ -59,7 +59,7 @@ namespace Data
                 IsUpsert = true
             };
 
-            await this.collection.ReplaceOneAsync<T>(matchElement, element);
+            var replaced = await this.collection.ReplaceOneAsync<T>(matchElement, element, updateOptions);
         }
 
         public async Task Replace(IEnumerable<T> elements, Expression<Func<T, bool>> matchElements)

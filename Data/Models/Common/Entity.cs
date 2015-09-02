@@ -10,16 +10,19 @@ namespace Models.Common
         public Entity()
         {
             this.Added = DateTime.Now;
-            this._id = ObjectId.GenerateNewId().ToString();
+            this.Available = true;
         }
 
         [BsonId]
-        public string _id { get; set; }
+        [BsonIgnoreIfDefault]
+        public ObjectId _id { get; set; }
 
         [BsonDateTimeOptions(Kind=DateTimeKind.Local)]
         public DateTime Added { get; set; }
 
         [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
         public DateTime Modified { get; set; }
+
+        public bool Available { get; set; }
     }
 }
