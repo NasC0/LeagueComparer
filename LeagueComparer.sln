@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LegacyMongoDriverSync", "Le
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "ClassLibrary1\Logging.csproj", "{8495E69B-8B6B-4ED0-ABA0-882B730AF871}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SynchronizationService", "SynchronizationService\SynchronizationService.csproj", "{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -167,6 +169,16 @@ Global
 		{8495E69B-8B6B-4ED0-ABA0-882B730AF871}.Release|ARM.ActiveCfg = Release|Any CPU
 		{8495E69B-8B6B-4ED0-ABA0-882B730AF871}.Release|x64.ActiveCfg = Release|Any CPU
 		{8495E69B-8B6B-4ED0-ABA0-882B730AF871}.Release|x86.ActiveCfg = Release|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Release|x64.ActiveCfg = Release|Any CPU
+		{4BBA2176-0689-4F5A-AF86-15EAB15C77D9}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

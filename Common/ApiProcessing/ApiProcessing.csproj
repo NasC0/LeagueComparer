@@ -34,6 +34,7 @@
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Build.Utilities.v4.0" />
     <Reference Include="MongoDB.Bson, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MongoDB.Bson.2.0.1\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
@@ -74,7 +75,9 @@
     <Compile Include="Processing\BaseProcessingStrategy.cs" />
     <Compile Include="Processing\ChampionProcessingStrategy.cs" />
     <Compile Include="Processing\ItemProcessingStrategy.cs" />
+    <Compile Include="Processing\MasteryProcessingStrategy.cs" />
     <Compile Include="Processing\ProcessingStrategyFactory.cs" />
+    <Compile Include="Processing\RuneProcessingStrategy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

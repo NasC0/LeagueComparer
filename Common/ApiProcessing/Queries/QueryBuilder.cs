@@ -12,10 +12,6 @@ namespace ApiProcessing.Queries
     {
         private const string ApiKeyParameterName = "api_key";
 
-        private readonly QueryParameter RequiredItemParameter = new QueryParameter("itemListData", "all");
-        private readonly QueryParameter RequiredChampionParameter = new QueryParameter("champData", "all");
-        private readonly QueryParameter RequiredRuneParameter = new QueryParameter("runeListData", "all");
-        private readonly QueryParameter RequiredMasteryParameter = new QueryParameter("masteryListData", "all");
         private readonly QueryParameter RequiredApiKeyParameter;
 
         private ILog logger = SysLogger.GetLogger(typeof(QueryBuilder));
@@ -100,29 +96,21 @@ namespace ApiProcessing.Queries
 
         private ICollection<QueryParameter> GetItemParameters(ICollection<QueryParameter> parameters)
         {
-            parameters.Add(RequiredItemParameter);
-
             return parameters;
         }
 
         private ICollection<QueryParameter> GetChampionParameters(ICollection<QueryParameter> parameters)
         {
-            parameters.Add(RequiredChampionParameter);
-
             return parameters;
         }
 
         private ICollection<QueryParameter> GetRuneParameters(ICollection<QueryParameter> parameters)
         {
-            parameters.Add(RequiredRuneParameter);
-
             return parameters;
         }
 
         private ICollection<QueryParameter> GetMasteryParameters(ICollection<QueryParameter> parameters)
         {
-            parameters.Add(RequiredMasteryParameter);
-
             return parameters;
         }
 

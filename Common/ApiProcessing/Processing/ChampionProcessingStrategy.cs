@@ -68,13 +68,17 @@ namespace ApiProcessing.Processing
                 itemsMissingFromApi = itemsMissingFromApi.Except(itemsDifferentThanApi);
             }
 
+            var itemsMissingFromApiCount = itemsMissingFromApi.Count();
+
             if (itemsDifferentFromDbCount > 0)
             {
+                this.logger.InfoFormat("Champions different in database count: {1}", itemsDifferentFromDbCount);
                 await this.ProcessItemsMissingFromDb(itemsDifferentFromDb);
             }
 
-            if (itemsMissingFromApi.Count() > 0)
+            if (itemsMissingFromApiCount > 0)
             {
+                this.logger.InfoFormat("Champions missing from API count: {1}", itemsMissingFromApiCount);
                 await this.ProcessItemsMissingFromApi(itemsMissingFromApi);
             }
         }

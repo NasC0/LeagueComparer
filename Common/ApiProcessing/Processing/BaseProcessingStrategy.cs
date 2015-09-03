@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Data.Contracts;
-using log4net;
 using Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using log4net;
 
 namespace ApiProcessing.Processing
 {
@@ -20,24 +20,54 @@ namespace ApiProcessing.Processing
         public BaseProcessingStrategy(IRepository<T> repository, Type loggerType)
         {
             this.logger = SysLogger.GetLogger(loggerType);
-            this.repository = repository;
+            this.Repository = repository;
+        }
+
+        protected IRepository<T> Repository
+        {
+            get
+            {
+                return this.repository;
+            }
+
+            private set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Repository value cannot be null");
+                }
+
+                this.repository = value;
+            }
         }
 
         protected virtual async Task ProcessDifferences(IEnumerable<T> itemsFromApi, IEnumerable<T> itemsFromCollection)
         {
-            var itemsMissingFromDb = itemsFromApi.Except(itemsFromCollection);
+            var itemsDifferentFromDb = itemsFromApi.Except(itemsFromCollection);
+            int itemsDifferentFromDbCount = itemsDifferentFromDb.Count();
             var itemsMissingFromApi = itemsFromCollection.Except(itemsFromApi);
 
-            if (itemsMissingFromDb.Count() > 0)
+            if (itemsDifferentFromDbCount > 0)
             {
-                await this.ProcessItemsMissingFromDb(itemsMissingFromDb);
+                itemsMissingFromApi = this.GetViableItemsMissingFromDb(itemsMissingFromApi, itemsDifferentFromDb);
             }
 
-            if (itemsMissingFromApi.Count() > 0)
+            var itemsMissingFromApiCount = itemsMissingFromApi.Count();
+
+            if (itemsDifferentFromDbCount > 0)
             {
+                this.logger.InfoFormat("{0} different in database count: {1}", typeof(T).Name, itemsDifferentFromDbCount);
+                await this.ProcessItemsMissingFromDb(itemsDifferentFromDb);
+            }
+
+            if (itemsMissingFromApiCount > 0)
+            {
+                this.logger.InfoFormat("{0} missing from API count: {1}", typeof(T).Name, itemsMissingFromApiCount);
                 await this.ProcessItemsMissingFromApi(itemsMissingFromApi);
             }
         }
+
+        protected abstract IEnumerable<T> GetViableItemsMissingFromDb(IEnumerable<T> itemsMissingFromApi, IEnumerable<T> itemsMissingFromDb);
 
         protected abstract Task ProcessItemsMissingFromDb(IEnumerable<T> itemsMissingFromDb);
 
@@ -47,7 +77,10 @@ namespace ApiProcessing.Processing
         {
             try
             {
-                var parseableContent = JObject.Parse(responseContent).SelectToken(JsonDataEntryPoint).ToString();
+                var parseableContent = JObject.Parse(responseContent)
+                                              .SelectToken(JsonDataEntryPoint)
+                                              .ToString();
+
                 var convertedResponse = JsonConvert.DeserializeObject<IDictionary<string, T>>(parseableContent)
                                                    .Select(c => c.Value);
 

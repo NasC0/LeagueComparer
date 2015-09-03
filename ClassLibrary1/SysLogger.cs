@@ -32,7 +32,7 @@ namespace Logging
         {
             if (!LogManager.GetRepository().Configured)
             {
-                string filePath = configFilePath + "/" + loggerConfigFileName;
+                string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, configFilePath + "/" + loggerConfigFileName);
                 var loggerConfigFile = new FileInfo(filePath);
                 XmlConfigurator.ConfigureAndWatch(loggerConfigFile);
             }

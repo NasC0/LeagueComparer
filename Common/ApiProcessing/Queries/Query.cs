@@ -78,7 +78,7 @@ namespace ApiProcessing.Queries
         {
             StringBuilder queryString = new StringBuilder();
             string queryType = this.ObjectType.ToString().ToLower();
-            queryString.AppendFormat("{0}/{1}?", this.Host, queryType);
+            queryString.AppendFormat("{0}{1}?", this.Host, queryType);
 
             string parameterFormat = "{0}={1}";
             if (this.Parameters.Count() > 0)

@@ -22,27 +22,37 @@ namespace ApiProcessing.Processing
 
         public IGameObjectProcessingStrategy GetProcessingStrategy(ObjectType queryResponseType)
         {
-            IGameObjectProcessingStrategy currentStrategy = null;
-
-            switch (queryResponseType)
+            try
             {
-                case ObjectType.Champion:
-                    currentStrategy = this.GetChampionStrategy();
-                    break;
-                case ObjectType.Item:
-                    currentStrategy = this.GetItemStrategy();
-                    break;
-                case ObjectType.Rune:
-                    break;
-                case ObjectType.Mastery:
-                    break;
-                default:
-                    var exception = new ArgumentException("Invalid argument supplied for query object type.");
-                    this.logger.Fatal("Cannot get strategy for query object type: {0}", exception);
-                    throw exception;
-            }
+                IGameObjectProcessingStrategy currentStrategy = null;
 
-            return currentStrategy;
+                switch (queryResponseType)
+                {
+                    case ObjectType.Champion:
+                        currentStrategy = this.GetChampionStrategy();
+                        break;
+                    case ObjectType.Item:
+                        currentStrategy = this.GetItemStrategy();
+                        break;
+                    case ObjectType.Rune:
+                        currentStrategy = this.GetRuneStrategy();
+                        break;
+                    case ObjectType.Mastery:
+                        currentStrategy = this.GetMasteryStrategy();
+                        break;
+                    default:
+                        var exception = new ArgumentException("Invalid argument supplied for query object type.");
+                        this.logger.Fatal("Cannot get strategy for query object type: {0}", exception);
+                        throw exception;
+                }
+
+                return currentStrategy;
+            }
+            catch (Exception ex)
+            {
+                this.logger.FatalFormat("Exception raised while getting processing strategy for {0}: {1}", queryResponseType.ToString(), ex);
+                throw ex;
+            }
         }
 
         private IGameObjectProcessingStrategy GetChampionStrategy()
@@ -58,6 +68,20 @@ namespace ApiProcessing.Processing
             var itemsRepo = this.repoFactory.GetRepository<Item>();
             var itemsProcessingStrategy = new ItemProcessingStrategy(itemsRepo);
             return itemsProcessingStrategy;
+        }
+
+        private IGameObjectProcessingStrategy GetRuneStrategy()
+        {
+            var runesRepo = this.repoFactory.GetRepository<Rune>();
+            var runeProcessingStrategy = new RuneProcessingStrategy(runesRepo);
+            return runeProcessingStrategy;
+        }
+
+        private IGameObjectProcessingStrategy GetMasteryStrategy()
+        {
+            var masteriesRepo = this.repoFactory.GetRepository<Mastery>();
+            var masteriesProcessingStrategy = new MasteryProcessingStrategy(masteriesRepo);
+            return masteriesProcessingStrategy;
         }
     }
 }

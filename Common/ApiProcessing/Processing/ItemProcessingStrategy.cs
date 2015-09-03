@@ -22,7 +22,7 @@ namespace ApiProcessing.Processing
             try
             {
                 var itemsFromResponse = await this.ConvertResponseContent(response.Content);
-                var itemsFromCollection = await this.repository.Find(i => i.Available == true);
+                var itemsFromCollection = await this.Repository.Find(i => i.Available == true);
 
                 bool areCollectionsEqual = CollectionEquality.CheckForEquality<Item, int>(itemsFromResponse, itemsFromCollection, i => i.ItemId);
 
@@ -39,28 +39,11 @@ namespace ApiProcessing.Processing
             }
         }
 
-        protected override async Task ProcessDifferences(IEnumerable<Item> itemsFromApi, IEnumerable<Item> itemsFromCollection)
+        protected override IEnumerable<Item> GetViableItemsMissingFromDb(IEnumerable<Item> itemsMissingFromApi, IEnumerable<Item> itemsMissingFromDb)
         {
-            var itemsDifferentFromDb = itemsFromApi.Except(itemsFromCollection);
-            int itemsDifferentFromDbCount = itemsDifferentFromDb.Count();
-
-            var itemsMissingFromApi = itemsFromCollection.Except(itemsFromApi);
-
-            if (itemsDifferentFromDbCount > 0)
-            {
-                var itemsDifferentThanApi = itemsMissingFromApi.Where(c => itemsDifferentFromDb.All(i => i.ItemId == c.ItemId));
-                itemsMissingFromApi = itemsMissingFromApi.Except(itemsDifferentThanApi);
-            }
-
-            if (itemsDifferentFromDbCount > 0)
-            {
-                await this.ProcessItemsMissingFromDb(itemsDifferentFromDb);
-            }
-
-            if (itemsMissingFromApi.Count() > 0)
-            {
-                await this.ProcessItemsMissingFromApi(itemsMissingFromApi);
-            }
+            var itemsDifferentThanApi = itemsMissingFromApi.Where(c => itemsMissingFromDb.All(i => i.ItemId == c.ItemId));
+            var viableItems = itemsMissingFromApi.Except(itemsDifferentThanApi);
+            return viableItems;
         }
 
         protected override async Task ProcessItemsMissingFromDb(IEnumerable<Item> itemsMissingFromDb)
@@ -68,7 +51,7 @@ namespace ApiProcessing.Processing
             this.logger.Info("Processing items missing from database");
             foreach (var item in itemsMissingFromDb)
             {
-                await this.repository.Replace(item, i => i.ItemId == item.ItemId);
+                await this.Repository.Replace(item, i => i.ItemId == item.ItemId);
             }
         }
 
@@ -81,7 +64,7 @@ namespace ApiProcessing.Processing
 
             foreach (var item in itemsMissingFromApi)
             {
-                await this.repository.Update(item, i => i.ItemId == item.ItemId, updateDefinition);
+                await this.Repository.Update(item, i => i.ItemId == item.ItemId, updateDefinition);
             }
         }
     }

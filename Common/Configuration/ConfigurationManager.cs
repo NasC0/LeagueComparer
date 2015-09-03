@@ -15,7 +15,14 @@ namespace Configuration
         {
             try
             {
-                string jsonConfig = File.ReadAllText(fileLocation);
+                string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileLocation);
+
+                string jsonConfig;
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    jsonConfig = sr.ReadToEnd();
+                }
+
                 var apiDataDict = JsonConvert.DeserializeObject<IDictionary<string, string>>(jsonConfig);
                 var configResult = new Config(apiDataDict);
 
