@@ -24,7 +24,7 @@ namespace ApiProcessing.Processing
         {
             try
             {
-                IGameObjectProcessingStrategy currentStrategy = null;
+                IGameObjectProcessingStrategy currentStrategy;
 
                 switch (queryResponseType)
                 {

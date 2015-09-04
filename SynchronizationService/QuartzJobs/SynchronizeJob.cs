@@ -34,9 +34,16 @@ namespace SynchronizationService.QuartzJobs
 
             foreach (var query in allQueries)
             {
-                var queryResponse = await this.queryExecutor.ExecuteQuery(query);
-                var currentQueryProcessingStrategy = this.processingStrategyFactory.GetProcessingStrategy(queryResponse.QueryObjectType);
-                await currentQueryProcessingStrategy.ProcessQueryResponse(queryResponse);
+                try
+                {
+                    var queryResponse = await this.queryExecutor.ExecuteQuery(query);
+                    var currentQueryProcessingStrategy = this.processingStrategyFactory.GetProcessingStrategy(queryResponse.QueryObjectType);
+                    await currentQueryProcessingStrategy.ProcessQueryResponse(queryResponse);
+                }
+                catch (Exception ex)
+                {
+                    this.logger.FatalFormat("Exception caught while trying to synchronize {0}s to the database: {1}", query.ObjectType.ToString(), ex);
+                }
             }
         }
 
@@ -58,11 +65,13 @@ namespace SynchronizationService.QuartzJobs
 
         private IEnumerable<IQuery> GetQueriesForGameObjects()
         {
-            List<IQuery> allQueries = new List<IQuery>();
-            allQueries.Add(this.queryBuilder.BuildQuery(ObjectType.Champion, this.GetChampionDefaultQueryParameter()));
-            allQueries.Add(this.queryBuilder.BuildQuery(ObjectType.Item, this.GetItemDefaultQueryParameter()));
-            allQueries.Add(this.queryBuilder.BuildQuery(ObjectType.Mastery, this.GetMasteryDefaultQueryParameter()));
-            allQueries.Add(this.queryBuilder.BuildQuery(ObjectType.Rune, this.GetRuneDefaultQueryParameter()));
+            var allQueries = new List<IQuery>
+            {
+                this.queryBuilder.BuildQuery(ObjectType.Champion, this.GetChampionDefaultQueryParameter()),
+                this.queryBuilder.BuildQuery(ObjectType.Item, this.GetItemDefaultQueryParameter()),
+                this.queryBuilder.BuildQuery(ObjectType.Mastery, this.GetMasteryDefaultQueryParameter()),
+                this.queryBuilder.BuildQuery(ObjectType.Rune, this.GetRuneDefaultQueryParameter())
+            };
 
             return allQueries;
         }

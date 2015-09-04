@@ -68,5 +68,14 @@ namespace SynchronizationService.Properties {
                 return ((string)(this["DatabaseName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("24")]
+        public int SynchronizationIntervalInHours {
+            get {
+                return ((int)(this["SynchronizationIntervalInHours"]));
+            }
+        }
     }
 }

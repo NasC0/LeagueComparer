@@ -73,21 +73,22 @@ namespace ApiProcessing.Queries
             this.LogQueryBuilding(objectType);
             ICollection<QueryParameter> processedParameters = null;
 
-            if (objectType == ObjectType.Item)
+            switch (objectType)
             {
-                processedParameters = GetItemParameters(parameters);
-            }
-            else if(objectType == ObjectType.Champion)
-            {
-                processedParameters = GetChampionParameters(parameters);
-            }
-            else if(objectType == ObjectType.Rune)
-            {
-                processedParameters = GetRuneParameters(parameters);
-            }
-            else if(objectType == ObjectType.Mastery)
-            {
-                processedParameters = GetMasteryParameters(parameters);
+                case ObjectType.Item:
+                    processedParameters = GetItemParameters(parameters);
+                    break;
+                case ObjectType.Champion:
+                    processedParameters = GetChampionParameters(parameters);
+                    break;
+                case ObjectType.Rune:
+                    processedParameters = GetRuneParameters(parameters);
+                    break;
+                case ObjectType.Mastery:
+                    processedParameters = GetMasteryParameters(parameters);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException("objectType", objectType, null);
             }
 
             processedParameters.Add(this.RequiredApiKeyParameter);

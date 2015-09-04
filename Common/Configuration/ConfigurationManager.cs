@@ -15,10 +15,10 @@ namespace Configuration
         {
             try
             {
-                string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileLocation);
+                string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileLocation);
 
                 string jsonConfig;
-                using (StreamReader sr = new StreamReader(filePath))
+                using (var sr = new StreamReader(filePath))
                 {
                     jsonConfig = sr.ReadToEnd();
                 }

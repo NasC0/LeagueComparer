@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using ApiProcessing.Enumerations;
 using ApiProcessing.Queries;
@@ -24,7 +23,7 @@ namespace ApiProcessingTests.Queries
             QueryParameter parameterOne = new QueryParameter("foo", "foo");
             QueryParameter parameterTwo = new QueryParameter("bar", "bar");
             Query testQuery = new Query(ObjectType.Champion, "randomHost", parameterOne, parameterTwo);
-            IEnumerable<QueryParameter> parameters = new QueryParameter[]
+            IEnumerable<QueryParameter> parameters = new[]
             {
                 parameterOne,
                 parameterTwo

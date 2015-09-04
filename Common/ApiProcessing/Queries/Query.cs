@@ -47,7 +47,7 @@ namespace ApiProcessing.Queries
                 {
                     throw new ArgumentNullException("Parameters must be initialized.");
                 }
-                else if (value.Count() <= 0)
+                else if (value.Count <= 0)
                 {
                     throw new ArgumentException("Parameters collection must have at least one element.");
                 }
@@ -76,12 +76,14 @@ namespace ApiProcessing.Queries
 
         public string GetQueryString()
         {
-            StringBuilder queryString = new StringBuilder();
-            string queryType = this.ObjectType.ToString().ToLower();
-            queryString.AppendFormat("{0}{1}?", this.Host, queryType);
+            var queryString = new StringBuilder();
+            var queryType = this.ObjectType.ToString().ToLower();
+            queryString.AppendFormat("{0}/{1}?", this.Host, queryType);
 
-            string parameterFormat = "{0}={1}";
-            if (this.Parameters.Count() > 0)
+            var parameterFormat = "{0}={1}";
+
+            // ReSharper disable once InvertIf
+            if (this.Parameters.Any())
             {
                 foreach (var parameter in this.Parameters)
                 {

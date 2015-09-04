@@ -5,7 +5,7 @@ namespace Helpers
     {
         public static string BuildApiStaticDataUrl(Regions region, Config currentConfiguration)
         {
-            string staticDataFormat = "{0}{1}/{2}/{3}/";
+            string staticDataFormat = "{0}{1}/{2}/{3}";
             string baseUrl = Config.GetBaseUrl(Regions.global);
             string staticDataUrl = string.Format(staticDataFormat, baseUrl, currentConfiguration.StaticData, region, currentConfiguration.ApiLatestStaticDataVersion);
 

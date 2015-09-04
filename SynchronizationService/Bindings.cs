@@ -18,12 +18,14 @@ namespace SynchronizationService
             var mongoDb = new MongoClient(Properties.Settings.Default.MongoConnection);
             var mongoConnection = mongoDb.GetDatabase(Properties.Settings.Default.DatabaseName);
             var masterConfiguration = ConfigurationManager.GetCurrentConfiguration(Properties.Settings.Default.MasterConfigLocation);
+            var baseHostString = ApiUrlBuilder.BuildApiStaticDataUrl(Regions.euw, masterConfiguration);
+
             Bind<IRepositoryFactory>().To<RepositoryFactory>().WithConstructorArgument(mongoConnection);
             Bind<IProcessingStrategyFactory>().To<ProcessingStrategyFactory>();
             Bind<IQueryExecutor>().To<QueryExecutor>().WithConstructorArgument(new HttpClient());
             Bind<IQueryBuilder>().To<QueryBuilder>()
-                .WithConstructorArgument(Properties.Settings.Default.ApiKey)
-                .WithConstructorArgument(ApiUrlBuilder.BuildApiStaticDataUrl(Regions.euw, masterConfiguration));
+                .WithConstructorArgument("apiKey", Properties.Settings.Default.ApiKey)
+                .WithConstructorArgument("host", baseHostString);
         }
     }
 }

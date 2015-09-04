@@ -18,9 +18,8 @@ namespace ModelsTests
         [TestMethod]
         public void Converting_ValidJsonChampion_ToChampionObject()
         {
-            var directory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
-
-            var championJsonObject = JObject.Parse(File.ReadAllText(@"C:\Projects\LeagueComparer\ModelsTests\resources\" + "FullChamp.json"));
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../resources/FullChamp.json");
+            var championJsonObject = JObject.Parse(File.ReadAllText(filePath));
             var championParsed = JsonConvert.DeserializeObject<Champion>(championJsonObject.ToString());
         }
     }

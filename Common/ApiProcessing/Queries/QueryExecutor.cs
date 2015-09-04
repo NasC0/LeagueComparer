@@ -46,8 +46,9 @@ namespace ApiProcessing.Queries
             var serverResponse = await this.ApiClient.GetAsync(query.GetQueryString());
             if (!serverResponse.IsSuccessStatusCode)
             {
-                this.logger.FatalFormat("Failed query execution for {0} with status code {1}", query.ObjectType, serverResponse.StatusCode);
-                throw new FailedOperationException(string.Format("Request to server failed with status code {0}", serverResponse.StatusCode));
+                var failedOperation = new FailedOperationException(string.Format("Request to server failed with status code {0}", serverResponse.StatusCode));
+                this.logger.FatalFormat("Failed query execution for {0} with status code {1}: {2}", query.ObjectType, serverResponse.StatusCode, failedOperation);
+                throw failedOperation;
             }
 
             var contentString = await serverResponse.Content.ReadAsStringAsync();

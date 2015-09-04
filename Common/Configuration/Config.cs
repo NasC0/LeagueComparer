@@ -13,8 +13,7 @@ namespace Configuration
             foreach (var property in apiData)
             {
                 var propertyAvailable = properties
-                                        .Where(x => x.Name.ToLower() == property.Key.ToLower())
-                                        .SingleOrDefault();
+                                        .SingleOrDefault(x => x.Name.ToLower() == property.Key.ToLower());
 
                 if (propertyAvailable != null)
                 {
