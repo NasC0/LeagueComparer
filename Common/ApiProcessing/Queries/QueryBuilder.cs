@@ -65,54 +65,23 @@ namespace ApiProcessing.Queries
         {
             this.LogQueryBuilding(objectType);
             List<QueryParameter> parameters = new List<QueryParameter>();
-            return this.BuildQuery(objectType, parameters);
+            return this.BuildQuery(objectType, parameters.ToArray());
         }
 
-        public IQuery BuildQuery(ObjectType objectType, ICollection<QueryParameter> parameters)
+        public IQuery BuildQuery(ObjectType objectType, params QueryParameter[] queryParameters)
         {
             this.LogQueryBuilding(objectType);
-            ICollection<QueryParameter> processedParameters = null;
-
-            switch (objectType)
-            {
-                case ObjectType.Item:
-                    processedParameters = GetItemParameters(parameters);
-                    break;
-                case ObjectType.Champion:
-                    processedParameters = GetChampionParameters(parameters);
-                    break;
-                case ObjectType.Rune:
-                    processedParameters = GetRuneParameters(parameters);
-                    break;
-                case ObjectType.Mastery:
-                    processedParameters = GetMasteryParameters(parameters);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException("objectType", objectType, null);
-            }
+            ICollection<QueryParameter> processedParameters = new List<QueryParameter>(queryParameters);
 
             processedParameters.Add(this.RequiredApiKeyParameter);
             return new Query(objectType, this.Host, processedParameters);
         }
 
-        private ICollection<QueryParameter> GetItemParameters(ICollection<QueryParameter> parameters)
+        public IQuery BuildQuery(ObjectType objectType, ICollection<QueryParameter> queryParameters)
         {
-            return parameters;
-        }
-
-        private ICollection<QueryParameter> GetChampionParameters(ICollection<QueryParameter> parameters)
-        {
-            return parameters;
-        }
-
-        private ICollection<QueryParameter> GetRuneParameters(ICollection<QueryParameter> parameters)
-        {
-            return parameters;
-        }
-
-        private ICollection<QueryParameter> GetMasteryParameters(ICollection<QueryParameter> parameters)
-        {
-            return parameters;
+            this.LogQueryBuilding(objectType);
+            queryParameters.Add(this.RequiredApiKeyParameter);
+            return new Query(objectType, this.Host, queryParameters);
         }
 
         private void LogQueryBuilding(ObjectType queryType)

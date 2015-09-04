@@ -4,6 +4,7 @@ using System.Reflection;
 using System.ServiceProcess;
 using ApiProcessing.Contracts;
 using Ninject;
+using SynchronizationService.Infrastructure;
 
 namespace SynchronizationService
 {
@@ -16,16 +17,15 @@ namespace SynchronizationService
         /// </summary>
         static void Main(string[] args)
         {
-            Debugger.Launch();
+            kernel = new StandardKernel();
+            kernel.Load(Assembly.GetExecutingAssembly());
+
+            var strategyFactory = kernel.Get<IProcessingStrategyFactory>();
+            var queryBuilder = kernel.Get<IQueryBuilder>();
+            var queryExecutor = kernel.Get<IQueryExecutor>();
+
             if (!Environment.UserInteractive)
             {
-                kernel = new StandardKernel();
-                kernel.Load(Assembly.GetExecutingAssembly());
-
-                var strategyFactory = kernel.Get<IProcessingStrategyFactory>();
-                var queryBuilder = kernel.Get<IQueryBuilder>();
-                var queryExecutor = kernel.Get<IQueryExecutor>();
-
                 ServiceBase[] ServicesToRun;
                 ServicesToRun = new ServiceBase[] 
                 { 
@@ -35,7 +35,7 @@ namespace SynchronizationService
             }
             else
             {
-                Console.WriteLine("TEEHEE");
+                SynchronizationExecutor.ExecuteSynchronization(queryExecutor, queryBuilder, strategyFactory).Wait();
             }
         }
     }

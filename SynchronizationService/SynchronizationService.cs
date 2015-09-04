@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.ServiceProcess;
 using ApiProcessing.Contracts;
 using log4net;

@@ -8,6 +8,8 @@ namespace ApiProcessing.Contracts
     {
         IQuery BuildQuery(ObjectType objectType);
 
-        IQuery BuildQuery(ObjectType objectType, ICollection<QueryParameter> parameters);
+        IQuery BuildQuery(ObjectType objectType, params QueryParameter[] queryParameters);
+
+        IQuery BuildQuery(ObjectType objectType, ICollection<QueryParameter> queryParameters);
     }
 }

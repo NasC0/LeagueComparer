@@ -27,10 +27,7 @@ namespace DatabaseSyncer
             var strategyProcessingFactory = new ProcessingStrategyFactory(repoFactory);
 
             var queryBuilder = new QueryBuilder(config.ApiKey, ApiUrlBuilder.BuildApiStaticDataUrl(Regions.euw, config));
-            var championQuery = queryBuilder.BuildQuery(ObjectType.Champion, new List<QueryParameter>() 
-            {
-                new QueryParameter("champData", "all")
-            });
+            var championQuery = queryBuilder.BuildQuery(ObjectType.Champion, new QueryParameter("champData", "all"));
 
             var queryExecutor = new QueryExecutor();
             var championQueryResponse = queryExecutor.ExecuteQuery(championQuery).Result;

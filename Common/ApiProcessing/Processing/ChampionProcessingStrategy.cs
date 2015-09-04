@@ -72,13 +72,13 @@ namespace ApiProcessing.Processing
 
             if (itemsDifferentFromDbCount > 0)
             {
-                this.logger.InfoFormat("Champions different in database count: {1}", itemsDifferentFromDbCount);
+                this.logger.InfoFormat("Champions different in database count: {0}", itemsDifferentFromDbCount);
                 await this.ProcessItemsMissingFromDb(itemsDifferentFromDb);
             }
 
             if (itemsMissingFromApiCount > 0)
             {
-                this.logger.InfoFormat("Champions missing from API count: {1}", itemsMissingFromApiCount);
+                this.logger.InfoFormat("Champions missing from API count: {0}", itemsMissingFromApiCount);
                 await this.ProcessItemsMissingFromApi(itemsMissingFromApi);
             }
         }

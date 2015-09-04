@@ -77,5 +77,41 @@ namespace SynchronizationService.Properties {
                 return ((int)(this["SynchronizationIntervalInHours"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("vilastella.com")]
+        public string EmailServerHost {
+            get {
+                return ((string)(this["EmailServerHost"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("noreply@vilastella.com")]
+        public string EmailUsername {
+            get {
+                return ((string)(this["EmailUsername"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("vilastellabot")]
+        public string EmailPassword {
+            get {
+                return ((string)(this["EmailPassword"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Spirital@gmail.com")]
+        public string EmailNotificationAddress {
+            get {
+                return ((string)(this["EmailNotificationAddress"]));
+            }
+        }
     }
 }

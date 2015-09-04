@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bindings.cs" />
+    <Compile Include="Infrastructure\EmailNotifier.cs" />
     <Compile Include="ProjectInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -97,6 +98,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="QuartzJobs\SynchronizeJob.cs" />
+    <Compile Include="Infrastructure\SynchronizationExecutor.cs" />
     <Compile Include="SynchronizationService.cs">
       <SubType>Component</SubType>
     </Compile>

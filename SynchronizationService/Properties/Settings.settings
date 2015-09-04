@@ -24,5 +24,17 @@
     <Setting Name="SynchronizationIntervalInHours" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">24</Value>
     </Setting>
+    <Setting Name="EmailServerHost" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">vilastella.com</Value>
+    </Setting>
+    <Setting Name="EmailUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">noreply@vilastella.com</Value>
+    </Setting>
+    <Setting Name="EmailPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">vilastellabot</Value>
+    </Setting>
+    <Setting Name="EmailNotificationAddress" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Spirital@gmail.com</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

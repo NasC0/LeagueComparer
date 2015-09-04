@@ -43,7 +43,8 @@ namespace ApiProcessing.Queries
 
         public async Task<IQueryResponse> ExecuteQuery(IQuery query)
         {
-            var serverResponse = await this.ApiClient.GetAsync(query.GetQueryString());
+            var queryString = query.GetQueryString();
+            var serverResponse = await this.ApiClient.GetAsync(queryString);
             if (!serverResponse.IsSuccessStatusCode)
             {
                 var failedOperation = new FailedOperationException(string.Format("Request to server failed with status code {0}", serverResponse.StatusCode));
