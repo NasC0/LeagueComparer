@@ -130,10 +130,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Logging.csproj">
-      <Project>{8495e69b-8b6b-4ed0-aba0-882b730af871}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common\ApiProcessing\ApiProcessing.csproj">
       <Project>{351055f7-06df-47bb-a3c3-67c97046a241}</Project>
       <Name>ApiProcessing</Name>
@@ -145,6 +141,10 @@
     <ProjectReference Include="..\Common\Helpers\Helpers.csproj">
       <Project>{e0485e04-2c82-43a3-9cda-46c29c98042d}</Project>
       <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Logging\Logging.csproj">
+      <Project>{8495e69b-8b6b-4ed0-aba0-882b730af871}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
     <ProjectReference Include="..\Data\Data\Data.csproj">
       <Project>{5973c094-1d69-4d8c-8b77-d65ff08a22b1}</Project>

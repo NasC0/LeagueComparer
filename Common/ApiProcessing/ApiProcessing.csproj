@@ -91,10 +91,6 @@
     <Compile Include="Queries\QueryResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ClassLibrary1\Logging.csproj">
-      <Project>{8495e69b-8b6b-4ed0-aba0-882b730af871}</Project>
-      <Name>Logging</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\Models\Models.csproj">
       <Project>{d974132d-d66d-498b-a5a1-d14fcb13a7c5}</Project>
       <Name>Models</Name>
@@ -106,6 +102,10 @@
     <ProjectReference Include="..\Helpers\Helpers.csproj">
       <Project>{e0485e04-2c82-43a3-9cda-46c29c98042d}</Project>
       <Name>Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{8495e69b-8b6b-4ed0-aba0-882b730af871}</Project>
+      <Name>Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
