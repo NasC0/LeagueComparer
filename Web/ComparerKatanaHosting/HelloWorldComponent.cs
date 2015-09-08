@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Owin;
 
 namespace ComparerKatanaHosting
 {
@@ -11,11 +12,11 @@ namespace ComparerKatanaHosting
 
     public class HelloWorldComponent
     {
-        private AppFunc next;
+        private AppFunc _next;
 
         public HelloWorldComponent(AppFunc next)
         {
-            this.next = next;
+            this._next = next;
         }
 
         public Task Invoke(IDictionary<string, object> environment)
@@ -26,7 +27,7 @@ namespace ComparerKatanaHosting
                 return writer.WriteAsync("Hello!!");
             }
 
-            this.next(environment);
+            this._next(environment);
         }
     }
 }
