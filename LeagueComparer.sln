@@ -51,6 +51,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityHostRequester", "Se
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TokenRequester", "Security\TokenRequester\TokenRequester.csproj", "{9F04108B-0FE8-4576-B408-47D75369BB40}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{229577E5-52DC-4846-982A-9FE0A119254B}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComparerAuthenticationProofOfConcept", "Web\ComparerAuthenticationProofOfConcept\ComparerAuthenticationProofOfConcept.csproj", "{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProofOfConcept", "ProofOfConcept", "{B157D312-940A-40F1-9274-FE80FA8F9168}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "POCClientProvider", "ProofOfConcept\POCClientProvider\POCClientProvider.csproj", "{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +256,26 @@ Global
 		{9F04108B-0FE8-4576-B408-47D75369BB40}.Release|ARM.ActiveCfg = Release|Any CPU
 		{9F04108B-0FE8-4576-B408-47D75369BB40}.Release|x64.ActiveCfg = Release|Any CPU
 		{9F04108B-0FE8-4576-B408-47D75369BB40}.Release|x86.ActiveCfg = Release|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Release|ARM.ActiveCfg = Release|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Release|x64.ActiveCfg = Release|Any CPU
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13}.Release|x86.ActiveCfg = Release|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Release|ARM.ActiveCfg = Release|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Release|x64.ActiveCfg = Release|Any CPU
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,5 +297,7 @@ Global
 		{BA5FC5B0-4179-4ABE-8450-E84D5F52C144} = {13E9DE8A-421F-43F4-A9E0-7C3E0B2D3C84}
 		{75E949E7-AB9C-4B5F-8D1A-0815A8CB7BFF} = {13E9DE8A-421F-43F4-A9E0-7C3E0B2D3C84}
 		{9F04108B-0FE8-4576-B408-47D75369BB40} = {13E9DE8A-421F-43F4-A9E0-7C3E0B2D3C84}
+		{96A7F65B-85D7-47DB-97FB-5D3CF23E5B13} = {20C92A26-3F5E-4BFA-AEB0-804D700ACBF9}
+		{0F3F5F83-5654-4F0D-B14C-75BD97B1C268} = {B157D312-940A-40F1-9274-FE80FA8F9168}
 	EndGlobalSection
 EndGlobal
