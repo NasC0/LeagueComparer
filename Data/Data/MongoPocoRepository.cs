@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Data
 {
-    public class MongoPocoRepository<T> : IMongoRepository<T> where T : Entity
+    public class MongoPocoRepository<T> : IRepository<T>
     {
         private IMongoCollection<T> collection;
 

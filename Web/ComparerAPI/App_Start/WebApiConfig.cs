@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
+using ComparerAPI.Infrastructure;
+using ComparerAPI.Models;
+using Data;
+using Data.Contracts;
 using Microsoft.Owin.Security.OAuth;
+using Models;
+using MongoDB.Driver;
 using Newtonsoft.Json.Serialization;
+using Ninject;
 
 namespace ComparerAPI
 {
@@ -16,7 +24,7 @@ namespace ComparerAPI
             // Configure Web API to use only bearer token authentication.
             config.SuppressDefaultHostAuthentication();
             config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
-
+            
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -25,6 +33,8 @@ namespace ComparerAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
         }
     }
 }

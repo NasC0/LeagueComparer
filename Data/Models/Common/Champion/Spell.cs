@@ -6,6 +6,7 @@ using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections;
 using Helpers;
+using Models.JsonConverters;
 
 namespace Models.Common.Champion
 {

@@ -44,7 +44,24 @@ namespace ApiProcessing.Models.JsonConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            throw new NotImplementedException("Writing from Stat object to stat JSON object is not implemented.");
+            writer.WriteStartArray();
+            var valueStat = (IEnumerable<Stat>) value;
+
+            foreach (var stat in valueStat)
+            {
+                writer.WriteStartObject();
+                writer.WritePropertyName("Modifies");
+                writer.WriteValue(stat.Modifies.ToString());
+                writer.WritePropertyName("ModifierApplicationRules");
+                writer.WriteValue(stat.ModifierApplicationRules.ToString());
+                writer.WritePropertyName("ModifyType");
+                writer.WriteValue(stat.ModifyType.ToString());
+                writer.WritePropertyName("Value");
+                writer.WriteValue(stat.Value.ToString());
+                writer.WriteEndObject();
+            }
+
+            writer.WriteEndArray();
         }
     }
 }

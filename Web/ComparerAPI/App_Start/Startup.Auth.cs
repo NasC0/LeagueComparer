@@ -10,6 +10,8 @@ using Microsoft.Owin.Security.OAuth;
 using Owin;
 using ComparerAPI.Providers;
 using ComparerAPI.Models;
+using Data.Contracts;
+using Ninject;
 
 namespace ComparerAPI
 {
@@ -20,8 +22,9 @@ namespace ComparerAPI
         public static string PublicClientId { get; private set; }
 
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
-        public void ConfigureAuth(IAppBuilder app)
+        public void ConfigureAuth(IAppBuilder app, IKernel kernel)
         {
+            app.CreatePerOwinContext(() => kernel.Get<IRepositoryFactory>());
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
@@ -39,8 +42,8 @@ namespace ComparerAPI
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
-                // In production mode set AllowInsecureHttp = false
-                AllowInsecureHttp = true
+                //// In production mode set AllowInsecureHttp = false
+                //AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users

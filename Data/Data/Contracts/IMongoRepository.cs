@@ -9,7 +9,7 @@ using MongoDB.Driver;
 
 namespace Data.Contracts
 {
-    public interface IMongoRepository<T> : IRepository<T> where T : Entity
+    public interface IMongoRepository<T> : IRepository<T>
     {
     }
 }

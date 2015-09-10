@@ -16,14 +16,8 @@ namespace ComparerAuthenticationProofOfConcept
             var mongoConnection = mongoDb.GetDatabase(Properties.Settings.Default.DatabaseName);
 
             Kernel.Bind<IDbContext>().To<ApplicationDbContext>();
-            Kernel.Bind<IRepositoryFactory>().To<RepositoryFactory>().WithConstructorArgument(mongoConnection);
-
-            var repoFactory = Kernel.TryGet<IRepositoryFactory>();
-
-            Kernel.Bind<IRepository<Item>>().ToMethod(context => repoFactory.GetRepository<Item>());
-            Kernel.Bind<IRepository<Champion>>().ToMethod(context => repoFactory.GetRepository<Champion>());
-            Kernel.Bind<IRepository<Mastery>>().ToMethod(context => repoFactory.GetRepository<Mastery>());
-            Kernel.Bind<IRepository<Rune>>().ToMethod(context => repoFactory.GetRepository<Rune>());
+            Kernel.Bind<IRepositoryFactory>().To<RepositoryFactory>()
+                .WithConstructorArgument(mongoConnection);
         }
     }
 }
