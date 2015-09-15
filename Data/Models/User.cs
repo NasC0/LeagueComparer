@@ -40,9 +40,11 @@ namespace Models
 
         public virtual List<string> Roles { get; set; }
 
-        public List<IdentityUserClaim> Claims { get; set; }
+        public virtual List<IdentityUserClaim> Claims { get; set; }
 
         public virtual List<UserLoginInfo> Logins { get; set; }
+
+        public virtual bool HasLocalAccount { get; set; }
         
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager, string authenticationType)
         {

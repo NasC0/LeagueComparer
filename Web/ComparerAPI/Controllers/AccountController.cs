@@ -405,13 +405,25 @@ namespace ComparerAPI.Controllers
             user = new User()
             {
                 UserName = model.UserName,
-                Email = model.Email
+                Email = model.Email.ToLower()
             };
 
+            string userId = string.Empty;
             IdentityResult result = await UserManager.CreateAsync(user);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                var userByEmail = await UserManager.FindByEmailAsync(model.Email.ToLower());
+                if (userByEmail == null)
+                {
+                    return GetErrorResult(result);   
+                }
+
+                userId = userByEmail.Id;
+            }
+
+            if (user.Id != null)
+            {
+                userId = user.Id;
             }
 
             var info = new ExternalLoginInfo()
@@ -420,7 +432,7 @@ namespace ComparerAPI.Controllers
                 Login = new UserLoginInfo(model.Provider, verifiedAccessToken.user_id)
             };
 
-            result = await UserManager.AddLoginAsync(user.Id, info.Login);
+            result = await UserManager.AddLoginAsync(userId, info.Login);
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
