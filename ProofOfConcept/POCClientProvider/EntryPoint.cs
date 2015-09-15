@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ComparerAuthenticationProofOfConcept.Models;
+using Newtonsoft.Json;
 
 namespace POCClientProvider
 {
@@ -11,7 +13,17 @@ namespace POCClientProvider
     {
         public static void Main()
         {
-            Run().Wait();
+            var baseHost = new Uri("https://localhost:44301");
+            var externalLoginString =
+                "/api/Account/ExternalLogins?returnUrl=%2F&generateState=true";
+            var httpClient = new HttpClient();
+            var apiResponse = httpClient.GetAsync(new Uri(baseHost, externalLoginString)).Result;
+            var responseJson =
+                JsonConvert.DeserializeObject<Dictionary<string, string>[]>(apiResponse.Content.ReadAsStringAsync().Result);
+            var redirectUrl = responseJson[0]["Url"];
+            var facebookLoginResult = httpClient.GetAsync(new Uri(baseHost, redirectUrl)).Result;
+
+            //Run().Wait();
         }
 
         public static async Task Run()

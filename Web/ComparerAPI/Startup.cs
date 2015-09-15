@@ -21,7 +21,7 @@ namespace ComparerAPI
             ConfigureAuth(app, kernel);
         }
 
-        private static IKernel CreateKernel()
+        public static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
 

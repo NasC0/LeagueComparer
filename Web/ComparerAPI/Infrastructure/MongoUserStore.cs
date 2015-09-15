@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Data.Contracts;
 using Microsoft.AspNet.Identity;
 using Models;
+using MongoDB.Driver;
 
 namespace ComparerAPI.Infrastructure
 {
     public class MongoUserStore<TUser> : IUserLoginStore<TUser>,
         IUserClaimStore<TUser>, IUserRoleStore<TUser>,
         IUserPasswordStore<TUser>, IUserSecurityStampStore<TUser>,
-        IUserStore<TUser>
+        IUserStore<TUser>, IUserEmailStore<TUser> 
         where TUser : User
     {
         private const string CollectionName = "AspNetUsers";
@@ -293,6 +295,65 @@ namespace ComparerAPI.Infrastructure
             {
                 throw new ObjectDisposedException(GetType().Name);
             }
+        }
+
+        public async Task<TUser> FindByEmailAsync(string email)
+        {
+            ThrowIfDisposed();
+            if (email == null)
+            {
+                throw new ArgumentNullException("Email");
+            }
+
+            var filterBuilder = new FilterDefinitionBuilder<User>();
+            var filterDefinition = filterBuilder.Eq(u => u.Email, email);
+            var users = await this._users.Find(filterDefinition);
+            var currentUser = (TUser) users.FirstOrDefault();
+            return currentUser;
+        }
+
+        public async Task<string> GetEmailAsync(TUser user)
+        {
+            ThrowIfDisposed();
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
+            return user.Email;
+        }
+
+        public async Task<bool> GetEmailConfirmedAsync(TUser user)
+        {
+            ThrowIfDisposed();
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
+            return user.EmailConfirmed;
+        }
+
+        public async Task SetEmailAsync(TUser user, string email)
+        {
+            ThrowIfDisposed();
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
+            user.Email = email;
+        }
+
+        public async Task SetEmailConfirmedAsync(TUser user, bool confirmed)
+        {
+            ThrowIfDisposed();
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
+
+            user.EmailConfirmed = confirmed;
         }
     }
 }

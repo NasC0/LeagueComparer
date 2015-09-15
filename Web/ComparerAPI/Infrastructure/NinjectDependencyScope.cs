@@ -11,34 +11,34 @@ namespace ComparerAPI.Infrastructure
 {
     public class NinjectDependencyScope : IDependencyScope
     {
-        private IResolutionRoot resolver;
+        private IResolutionRoot _resolver;
 
         internal NinjectDependencyScope(IResolutionRoot resolver)
         {
             Contract.Assert(resolver != null);
 
-            this.resolver = resolver;
+            this._resolver = resolver;
         }
 
         public void Dispose()
         {
-            resolver = null;
+            _resolver = null;
         }
 
         public object GetService(Type serviceType)
         {
-            if (resolver == null)
+            if (_resolver == null)
                 throw new ObjectDisposedException("this", "This scope has already been disposed");
 
-            return resolver.TryGet(serviceType);
+            return _resolver.TryGet(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            if (resolver == null)
+            if (_resolver == null)
                 throw new ObjectDisposedException("this", "This scope has already been disposed");
 
-            return resolver.GetAll(serviceType);
+            return _resolver.GetAll(serviceType);
         }
     }
 }

@@ -35,6 +35,10 @@ namespace ComparerAPI.Models
     public class RegisterBindingModel
     {
         [Required]
+        [Display(Name = "Username")]
+        public string Username { get; set; }
+
+        [Required]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
@@ -53,8 +57,16 @@ namespace ComparerAPI.Models
     public class RegisterExternalBindingModel
     {
         [Required]
-        [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        public string UserName { get; set; }
+
+        [Required]
+        public string Provider { get; set; }
+
+        [Required]
+        public string ExternalAccessToken { get; set; }
     }
 
     public class RemoveLoginBindingModel

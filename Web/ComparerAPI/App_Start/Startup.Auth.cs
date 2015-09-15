@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Security.Claims;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -11,13 +13,20 @@ using Owin;
 using ComparerAPI.Providers;
 using ComparerAPI.Models;
 using Data.Contracts;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Facebook;
 using Ninject;
 
 namespace ComparerAPI
 {
     public partial class Startup
     {
+        private const string FacebookGraphApi = "https://graph.facebook.com";
+        private const string FacebookGraphEmailRequest = "me?fields=name,email";
+
         public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+        public static FacebookAuthenticationOptions facebookOptions { get; private set; }
+        public static GoogleOAuth2AuthenticationOptions googleOptions { get; private set; }
 
         public static string PublicClientId { get; private set; }
 
@@ -43,7 +52,7 @@ namespace ComparerAPI
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 //// In production mode set AllowInsecureHttp = false
-                //AllowInsecureHttp = true
+                AllowInsecureHttp = true
             };
 
             // Enable the application to use bearer tokens to authenticate users
@@ -58,15 +67,36 @@ namespace ComparerAPI
             //    consumerKey: "",
             //    consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //    appId: "",
-            //    appSecret: "");
+            facebookOptions = new FacebookAuthenticationOptions()
+            {
+                AppId = "1656794197865890",
+                AppSecret = "276744e85601ad23053648065c5eaf19",
+                SignInAsAuthenticationType = app.GetDefaultSignInAsAuthenticationType()
+            };
+            facebookOptions.Provider = new FacebookAuthenticationProvider()
+            {
+                OnAuthenticated = async context =>
+                {
+                    context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
+                }
+            };
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseFacebookAuthentication(facebookOptions);
+
+            googleOptions = new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "793101710745-gko0r0entbg6vde240m95eit3u35cc6p.apps.googleusercontent.com",
+                ClientSecret = "8-f77U7KPcPZ25dum2H02JIu",
+                Provider = new GoogleOAuth2AuthenticationProvider()
+                {
+                    OnAuthenticated = async context =>
+                    {
+                        context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));
+                    }
+                }
+            };
+
+            app.UseGoogleAuthentication(googleOptions);
         }
     }
 }

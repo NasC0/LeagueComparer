@@ -9,17 +9,17 @@ namespace ComparerAPI.Infrastructure
 {
     public class NinjectResolver : NinjectDependencyScope, IDependencyResolver
     {
-        private IKernel kernel;
+        private IKernel _kernel;
 
         public NinjectResolver(IKernel kernel)
             : base(kernel)
         {
-            this.kernel = kernel;
+            this._kernel = kernel;
         }
 
         public IDependencyScope BeginScope()
         {
-            return new NinjectDependencyScope(kernel);
+            return new NinjectDependencyScope(_kernel);
         }
     }
 }
