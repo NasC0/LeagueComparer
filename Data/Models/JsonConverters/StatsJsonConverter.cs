@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Models;
 using Models.Common;
+using MongoDB.Bson;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -23,7 +26,7 @@ namespace ApiProcessing.Models.JsonConverters
 
         public override bool CanConvert(Type objectType)
         {
-            bool isConvertible = typeof(Item).IsAssignableFrom(objectType);
+            bool isConvertible = typeof (Item) == objectType;
             return isConvertible;
         }
 
@@ -44,24 +47,18 @@ namespace ApiProcessing.Models.JsonConverters
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteStartArray();
-            var valueStat = (IEnumerable<Stat>) value;
-
-            foreach (var stat in valueStat)
+            var valueConverted = (IEnumerable<Stat>) value;
+            JToken writeObject;
+            if (valueConverted.Any())
             {
-                writer.WriteStartObject();
-                writer.WritePropertyName("Modifies");
-                writer.WriteValue(stat.Modifies.ToString());
-                writer.WritePropertyName("ModifierApplicationRules");
-                writer.WriteValue(stat.ModifierApplicationRules.ToString());
-                writer.WritePropertyName("ModifyType");
-                writer.WriteValue(stat.ModifyType.ToString());
-                writer.WritePropertyName("Value");
-                writer.WriteValue(stat.Value.ToString());
-                writer.WriteEndObject();
+                writeObject = JToken.FromObject(valueConverted);
+            }
+            else
+            {
+                writeObject = JToken.FromObject(new List<Stat>());
             }
 
-            writer.WriteEndArray();
+            writeObject.WriteTo(writer);
         }
     }
 }

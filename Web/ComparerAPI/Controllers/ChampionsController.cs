@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ComparerAPI.ViewModels;
 using Data.Contracts;
 using Models;
 
@@ -23,14 +24,19 @@ namespace ComparerAPI.Controllers
         public async Task<IHttpActionResult> Get()
         {
             var allChamps = await this._championsCollection.All();
-            return Ok(allChamps);
+            var outputChampions = allChamps.AsQueryable()
+                .Select(ChampionOutputModel.FromModel);
+            return Ok(outputChampions);
         }
 
         [HttpGet]
         public async Task<IHttpActionResult> Get(int id)
         {
             var allChamps = await this._championsCollection.Find(c => c.ChampionId == id);
-            return Ok(allChamps);
+            var outputChampion = allChamps.AsQueryable()
+                .Select(ChampionOutputModel.FromModel)
+                .FirstOrDefault();
+            return Ok(outputChampion);
         }
     }
 }

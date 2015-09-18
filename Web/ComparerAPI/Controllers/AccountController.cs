@@ -371,7 +371,28 @@ namespace ComparerAPI.Controllers
 
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                var userByEmail = await UserManager.FindByEmailAsync(model.Email.ToLower());
+
+                if (userByEmail == null)
+                {
+                    return InternalServerError();
+                }
+                
+                if (userByEmail.HasLocalAccount)
+                {
+                    return GetErrorResult(new IdentityResult("User alreagy registered."));
+                }
+                else
+                {
+                    userByEmail.HasLocalAccount = true;
+                    userByEmail.PasswordHash = UserManager.PasswordHasher.HashPassword(model.Password);
+                    var updateResult = await UserManager.UpdateAsync(userByEmail);
+
+                    if (!updateResult.Succeeded)
+                    {
+                        return GetErrorResult(updateResult);
+                    }
+                }
             }
 
             return Ok();

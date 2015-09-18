@@ -26,7 +26,7 @@ namespace SynchronizationService.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://localhost:1801")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mongodb://kickass:314159aass@spirital.tk:1801")]
         public string MongoConnection {
             get {
                 return ((string)(this["MongoConnection"]));

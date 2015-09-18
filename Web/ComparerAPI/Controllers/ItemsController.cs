@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using ComparerAPI.ViewModels;
 using Data.Contracts;
 using Microsoft.Ajax.Utilities;
 using Models;
@@ -26,8 +27,10 @@ namespace ComparerAPI.Controllers
             try
             {
                 var allItems = await this._items.All();
+                var outputItems = allItems.AsQueryable()
+                    .Select(ItemOutputModel.FromModel);
 
-                return Ok(allItems);
+                return Ok(outputItems);
             }
             catch (Exception ex)
             {
@@ -40,7 +43,11 @@ namespace ComparerAPI.Controllers
             try
             {
                 var allItems = await this._items.Find(i => i.ItemId == id);
-                return Ok(allItems);
+                var outputItem = allItems.AsQueryable()
+                    .Select(ItemOutputModel.FromModel)
+                    .FirstOrDefault();
+
+                return Ok(outputItem);
             }
             catch (Exception ex)
             {

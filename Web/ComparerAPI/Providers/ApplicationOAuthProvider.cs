@@ -6,7 +6,6 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
-using Models;
 
 namespace ComparerAPI.Providers
 {
@@ -24,13 +23,22 @@ namespace ComparerAPI.Providers
             _publicClientId = publicClientId;
         }
 
+        // Context.Username represents the user's email, since that is used instead of a login username.
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            User user = await userManager.FindAsync(context.UserName, context.Password);
+            var user = await userManager.FindByEmailAsync(context.UserName.ToLower());
+            //User user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
+            {
+                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                return;
+            }
+
+            var isPasswordValid = await userManager.CheckPasswordAsync(user, context.Password);
+            if (!isPasswordValid)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;

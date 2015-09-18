@@ -228,8 +228,8 @@
     <Compile Include="Controllers\ChampionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemsController.cs" />
+    <Compile Include="Controllers\MasteriesController.cs" />
     <Compile Include="Controllers\RunesController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -249,6 +249,13 @@
     <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\ChampionOutputModel.cs" />
+    <Compile Include="ViewModels\Common\ImageOutputModel.cs" />
+    <Compile Include="ViewModels\Common\PassiveSpellOutputModel.cs" />
+    <Compile Include="ViewModels\Common\SpellEffectOutputModel.cs" />
+    <Compile Include="ViewModels\Common\SpellOutputModel.cs" />
+    <Compile Include="ViewModels\ItemOutputModel.cs" />
+    <Compile Include="ViewModels\RunesOutputModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />

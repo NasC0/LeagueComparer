@@ -1,14 +1,17 @@
 ﻿using ApiProcessing.Models.JsonConverters;
 using Models.Common.Enumerations;
+using Models.JsonConverters;
 using Newtonsoft.Json;
 
 namespace Models.Common
 {
-    [JsonConverter(typeof(StatsJsonConverter))]
     public class Stat
     {
+        [JsonConverter(typeof(GenericEnumConverter<Modifies>))]
         public Modifies Modifies { get; set; }
+        [JsonConverter(typeof(GenericEnumConverter<ModifierApplicationRules>))]
         public ModifierApplicationRules ModifierApplicationRules { get; set; }
+        [JsonConverter(typeof(GenericEnumConverter<ModifyType>))]
         public ModifyType ModifyType { get; set; }
         public double Value { get; set; }
 
