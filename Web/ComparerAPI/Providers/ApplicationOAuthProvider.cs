@@ -26,6 +26,7 @@ namespace ComparerAPI.Providers
         // Context.Username represents the user's email, since that is used instead of a login username.
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+            //context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             var user = await userManager.FindByEmailAsync(context.UserName.ToLower());

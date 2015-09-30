@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using ComparerAPI.ViewModels;
 using Data.Contracts;
 using Microsoft.Ajax.Utilities;
@@ -13,6 +14,7 @@ using Models;
 namespace ComparerAPI.Controllers
 {
     [Authorize]
+    [EnableCors("*", "*", "*", "*")]
     public class ItemsController : ApiController
     {
         private IRepository<Item> _items; 

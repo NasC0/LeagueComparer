@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html ng-app="GithubViewer">
+    <head>
+        <meta charset="utf-8" />
+        <title>Github Client</title>
+        <link rel="stylesheet" href="css/index.css">
+    </head>
+	
+	<body>
+        <h1>Github Client</h1>
+		<div ng-view></div>
+        
+        <script src="./vendor/angular.js"></script>
+        <script src="./vendor/angular-route.js"></script>
+        <script src="./app/app.js"></script>
+        <script src="./app/controllers/MainController.js"></script>
+        <script src="./app/controllers/ItemsController.js"></script>
+        <script src="./app/controllers/RepoController.js"></script>
+        <script src="./app/services/items-service.js"></script>
+	</body>
+</html>

@@ -1,0 +1,10 @@
+<div ng-controller="LoginController as login">
+    <div ng-show="login.user.loggedIn">
+        Hello {{login.user.username}}
+    </div>
+    <form ng-if="!login.user.loggedIn" name="loginForm" ng-submit="login.login(loginForm)"  novalidate>
+        <input type="text" name="username" ng-model="login.username" placeholder="Username" />
+        <input type="password" name="password" ng-model="login.password" placeholder="Password" />
+        <input type="submit" value="Login">
+    </form>
+</div>

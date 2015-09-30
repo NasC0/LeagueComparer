@@ -1,0 +1,17 @@
+<div ng-controller="RegisterController">
+    <form ng-submit="register()" name="registerForm">
+        <div>
+            <label for="username-input">Email</label>
+            <input type="text" id="username-input" required name="username" ng-model="username" placeholder="Email" />
+        </div>
+        <div>
+            <label for="password-input">Password</label>
+            <input type="password" id="password-input" required name="password" ng-model="password" placeholder="Password" />
+        </div>
+        <div>
+        	<label for="confirm-password-input">Confirm password</label>
+        	<input type="password" id="confirm-password-input" required name="confirm-password" ng-model="confirmPassword" placeholder="Confirm password" />
+        </div>
+        <input type="submit" value="Register" />
+    </form>
+</div>

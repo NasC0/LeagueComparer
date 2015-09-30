@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
+using Helpers;
 using Models.Common.Champion;
 
 namespace ComparerAPI.ViewModels.Common
@@ -25,7 +26,8 @@ namespace ComparerAPI.ViewModels.Common
                         Name = model.Image.Name,
                         Height = model.Image.Height,
                         Width = model.Image.Width,
-                        Sprite = model.Image.Sprite
+                        Sprite = model.Image.Sprite,
+                        ImageUrl = ApiUrlBuilder.GetChampionSpellImageUrl(model.Image.Name)
                     },
                     Cooldown = model.Cooldown,
                     Cost = model.Cost,

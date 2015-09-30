@@ -1,0 +1,15 @@
+<div ng-show="error">
+	{{error}}
+</div>
+
+<div ng-show="repo">
+	<ul>
+		<li>Full name: {{repo.full_name}}</li>
+		<li>Language: {{repo.language}}</li>
+		<li>Watchers: {{repo.watchers_count | number}}</li>
+		<li>Stars: {{repo.stargazers_count | number}}</li>
+		<li>Homepage: {{repo.homepage}}</li>
+		<li>Subscribers: {{repo.subscribers_count | number}}</li>
+		<li>Open issues: {{repo.open_issues_count | number}}</li>
+	</ul>
+</div>

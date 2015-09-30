@@ -305,9 +305,10 @@ namespace ComparerAPI.Infrastructure
                 throw new ArgumentNullException("Email");
             }
 
-            var filterBuilder = new FilterDefinitionBuilder<User>();
-            var filterDefinition = filterBuilder.Eq(u => u.Email, email);
-            var users = await this._users.Find(filterDefinition);
+            //var filterBuilder = new FilterDefinitionBuilder<User>();
+            //var filterDefinition = filterBuilder.Eq(u => u.Email, email);
+            //var users = await this._users.Find(filterDefinition);
+            var users = await this._users.Find(u => u.Email.ToLowerInvariant() == email);
             var currentUser = (TUser) users.FirstOrDefault();
             return currentUser;
         }

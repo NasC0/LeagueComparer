@@ -6,5 +6,6 @@ namespace ComparerAPI.ViewModels.Common
         public int Height { get; set; }
         public string Name { get; set; }
         public string Sprite { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

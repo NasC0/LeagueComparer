@@ -11,6 +11,7 @@ using Models;
 
 namespace ComparerAPI.Controllers
 {
+    [Authorize]
     public class ChampionsController : ApiController
     {
         private IRepository<Champion> _championsCollection; 

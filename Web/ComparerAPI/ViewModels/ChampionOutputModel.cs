@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Web;
 using ComparerAPI.ViewModels.Common;
-using Microsoft.Ajax.Utilities;
+using Helpers;
 using Models;
 using Models.Common.Champion;
 using Models.Common.Enumerations;
 using Models.JsonConverters;
 using Newtonsoft.Json;
-using WebGrease.Css.Extensions;
 
 namespace ComparerAPI.ViewModels
 {
@@ -37,7 +35,8 @@ namespace ComparerAPI.ViewModels
                             Name = model.Passive.Image.Name,
                             Height = model.Passive.Image.Height,
                             Width = model.Passive.Image.Width,
-                            Sprite = model.Passive.Image.Sprite
+                            Sprite = model.Passive.Image.Sprite,
+                            ImageUrl = ApiUrlBuilder.GetPassiveSpellImageUrl(model.Passive.Image.Name)
                         }
                     },
                     Image = new ImageOutputModel()
@@ -45,7 +44,8 @@ namespace ComparerAPI.ViewModels
                         Name = model.Image.Name,
                         Height = model.Image.Height,
                         Width = model.Image.Width,
-                        Sprite = model.Image.Sprite
+                        Sprite = model.Image.Sprite,
+                        ImageUrl = ApiUrlBuilder.GetChampionImageUrl(model.Image.Name)
                     },
                     Spells = model.Spells.AsQueryable().Select(SpellOutputModel.FromModel)
                 };

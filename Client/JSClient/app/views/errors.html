@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form ng-submit="addAlert()">
+                <h4>Alerts</h4>
+                <div class="form-group">
+                    <input type="text" class="form-control" ng-model="alertMessage" name="alertMessage" placeholder="message" required />
+                </div>
+                <div class="form-group">
+                    <select name="alertType" ng-model="alertType" class="form-control" ng-options="type for type in alertTypes">
+                    </select>
+                </div>
+
+                <input type="submit" value="Add alert" class="btn btn-default btn-lg" />
+            </form>
+        </div>
+        <div class="col-md-4">
+            <alerts>
+            </alerts>
+        </div>
+    </div>
+</div>

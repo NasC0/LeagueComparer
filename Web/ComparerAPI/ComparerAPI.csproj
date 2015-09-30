@@ -42,6 +42,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin.Cors, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MongoDB.Bson, Version=2.0.1.27, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MongoDB.Bson.2.0.1\lib\net45\MongoDB.Bson.dll</HintPath>
       <Private>True</Private>
@@ -255,7 +259,8 @@
     <Compile Include="ViewModels\Common\SpellEffectOutputModel.cs" />
     <Compile Include="ViewModels\Common\SpellOutputModel.cs" />
     <Compile Include="ViewModels\ItemOutputModel.cs" />
-    <Compile Include="ViewModels\RunesOutputModel.cs" />
+    <Compile Include="ViewModels\MasteryOutputModel.cs" />
+    <Compile Include="ViewModels\RuneOutputModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
@@ -329,6 +334,10 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Helpers\Helpers.csproj">
+      <Project>{E0485E04-2C82-43A3-9CDA-46C29C98042D}</Project>
+      <Name>Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\Data\Data.csproj">
       <Project>{5973C094-1D69-4D8C-8B77-D65FF08A22B1}</Project>
       <Name>Data</Name>

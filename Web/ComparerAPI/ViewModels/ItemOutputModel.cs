@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using ApiProcessing.Models.JsonConverters;
 using ComparerAPI.ViewModels.Common;
+using Helpers;
 using Models;
 using Models.Common;
 using Newtonsoft.Json;
@@ -27,7 +28,8 @@ namespace ComparerAPI.ViewModels
                         Name = model.Image.Name,
                         Width = model.Image.Width,
                         Height = model.Image.Height,
-                        Sprite = model.Image.Sprite
+                        Sprite = model.Image.Sprite,
+                        ImageUrl = ApiUrlBuilder.GetItemImageUrl(model.Image.Name)
                     },
                     Price = model.Gold,
                     From = model.From,

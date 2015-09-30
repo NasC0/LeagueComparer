@@ -1,0 +1,40 @@
+<div ng-show="error">{{error}}</div>
+
+<div class="grid" ng-show="user">
+    <div>
+        <img src="{{user.avatar_url}}" alt="user avatar" class="image" />
+    </div>
+
+    <select ng-model="sortOrder">
+        <option value="+name">Name Ascending</option>
+        <option value="-name">Name Descending</option>
+        <option value="+stargazers_count">Stars Ascending</option>
+        <option value="-stargazers_count">Stars Descending</option>
+        <option value="+language">Language Ascending</option>
+        <option value="-language">Language Descending</option>
+    </select>
+
+    <div>
+        Repos:
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Stars</th>
+                    <th>Language</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="repo in repos | orderBy: sortOrder">
+                    <td><a href="#/repos/{{username}}/{{repo.name}}">{{repo.name}}</a></td>
+                    <td>{{repo.stargazers_count}}</td>
+                    <td>{{repo.language}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div ng-show="!user">
+	<h2>No items to show</h2>
+</div>

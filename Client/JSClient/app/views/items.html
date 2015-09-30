@@ -1,0 +1,19 @@
+<div ng-show="error">{{error}}</div>
+
+<div class="grid" ng-show="items">
+    <div ng-repeat="item in items | orderBy: '+Price.Total'" ng-show="item" class="row">
+        <img src="{{item.Image.ImageUrl}}" alt="Image" class="item-img" />
+        <div class="item-info">
+            <div>Name: {{item.Name}}</div>
+            <div>Price: {{item.Price.Total | number}}</div>
+            <div>Id: {{item.ItemId}}</div>
+            <div>Description:
+                <span style="display: block;" ng-bind-html="item.Description"></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div ng-show="!items">
+    <h2>No items to show</h2>
+</div>

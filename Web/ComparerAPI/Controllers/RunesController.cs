@@ -10,6 +10,7 @@ using Models;
 
 namespace ComparerAPI.Controllers
 {
+    [Authorize]
     public class RunesController : BaseController
     {
         private IRepository<Rune> _runesCollection; 

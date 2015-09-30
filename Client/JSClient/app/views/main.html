@@ -1,0 +1,9 @@
+{{countDown}}
+<form name="searchUser" ng-submit="search(id)">
+    <input type="search" required placeholder="Id to find" ng-model="id"/>
+    <input type="submit" value="Search"/>
+</form>
+
+<div ng-include="'./app/views/items.html'">
+
+</div>

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web.Cors;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
@@ -13,6 +15,7 @@ using Owin;
 using ComparerAPI.Providers;
 using ComparerAPI.Models;
 using Data.Contracts;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Facebook;
 using Ninject;
@@ -33,6 +36,21 @@ namespace ComparerAPI
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app, IKernel kernel)
         {
+            app.UseCors(new CorsOptions()
+            {
+                PolicyProvider = new CorsPolicyProvider()
+                {
+                    PolicyResolver = context => Task.FromResult(new CorsPolicy()
+                    {
+                        AllowAnyHeader = true,
+                        AllowAnyMethod = true,
+                        AllowAnyOrigin = true,
+                        SupportsCredentials = true,
+                        PreflightMaxAge = Int32.MaxValue
+                    })
+                }
+            });
+
             app.CreatePerOwinContext(() => kernel.Get<IRepositoryFactory>());
             // Configure the db context and user manager to use a single instance per request
             app.CreatePerOwinContext(ApplicationDbContext.Create);
