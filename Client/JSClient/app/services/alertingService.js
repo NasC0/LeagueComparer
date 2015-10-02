@@ -51,6 +51,12 @@
 			}
 		};
 
+		var errorHandler = function(description) {
+			return function() {
+				addDanger(description);
+			};
+		};
+
 		return {
 			addAlert: addAlert,
 			addWarning: addWarning,
@@ -59,7 +65,8 @@
 			addSuccess: addSuccess,
 			currentAlerts: currentAlerts,
 			alertTypes: alertTypes,
-			removeAlert: removeAlert
+			removeAlert: removeAlert,
+			errorHandler: errorHandler
 		};
 	};
 

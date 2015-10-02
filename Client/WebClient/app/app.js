@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    var loginRedirect = 'http://localhost:57667/app/logins/authenticate.html';
+    var loginRedirect = 'http://localhost:3000/#/authcomplete';
     var loginScriptsLocation = 'app/logins/';
     var popupParameters = 'width=300,height=400,scrollbars=no,resizable=no,location=no,menubar=no,toolbar=no';
     var baseHost = 'https://localhost:44301';

@@ -31,6 +31,10 @@
 				templateUrl: 'app/views/errors.html',
 				controller: 'ErrorProneController'
 			})
+			.when('/associate', {
+				templateUrl: 'app/views/associate.html',
+				controller: 'AssociateController'
+			})
 			.otherwise({
 				redirectTo: '/main'
 			});

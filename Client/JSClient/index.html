@@ -14,6 +14,13 @@
             </nav>
         </header>
         <h1>League Comparer</h1>
+        <div class="col-md-4">
+            <spinner>
+                <img src="./content/spinner.gif" />
+            </spinner>
+            <alerts>
+            </alerts>
+        </div>
 		<div ng-view></div>
         
         <!-- Dependencies -->
@@ -31,6 +38,7 @@
         <script src="./app/controllers/LogoutController.js"></script>
         <script src="./app/controllers/RegisterController.js"></script>
         <script src="./app/controllers/ErrorProneController.js"></script>
+        <script src="./app/controllers/AssociateController.js"></script>
 
         <!-- Services -->
         <script src="./app/services/items-service.js"></script>
@@ -40,12 +48,16 @@
         <script src="./app/services/localStorage.js"></script>
         <script src="./app/services/apiUrls.js"></script>
         <script src="./app/services/alertingService.js"></script>
+        <script src="./app/services/exceptionHandler.js"></script>
+        <!-- <script src="./app/services/interpolateDebug.js"></script> -->
 
         <!-- Interceptors -->
         <script src="./app/interceptors/addToken.js"></script>
         <script src="./app/interceptors/loginRedirect.js"></script>
+        <script src="./app/interceptors/requestsCounter.js"></script>
 
         <!-- Directives -->
         <script src="./app/directives/alerts.js"></script>
+        <script src="./app/directives/workSpinner.js"></script>
 	</body>
 </html>

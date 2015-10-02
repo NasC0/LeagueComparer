@@ -2,15 +2,18 @@
     <div ng-show="login.user.loggedIn">
         Hello {{login.user.username}}
         <div>
-        	<a href="#/logout">Logout</a>
+            <a href="#/logout">Logout</a>
         </div>
     </div>
-    <form ng-if="!login.user.loggedIn" name="loginForm" ng-submit="login.login(loginForm)"  novalidate>
-        <input type="text" name="username" ng-model="login.username" placeholder="Username" />
-        <input type="password" name="password" ng-model="login.password" placeholder="Password" />
-        <input type="submit" value="Login">
-    </form>
+    <div ng-if="!login.user.loggedIn">
+        <form name="loginForm" ng-submit="login.login(loginForm)">
+            <input type="text" name="username" ng-model="login.username" placeholder="Username" required />
+            <input type="password" name="password" ng-model="login.password" placeholder="Password" required />
+            <input type="submit" value="Login">
+        </form>
+        <button ng-repeat="externalLogin in login.availableLogins" ng-click="login.externalLogin(externalLogin)">{{externalLogin.Name}}</button>
+    </div>
     <div>
-    	<a href="#/register">Register</a>
+        <a href="#/register">Register</a>
     </div>
 </div>

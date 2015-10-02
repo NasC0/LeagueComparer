@@ -1,5 +1,9 @@
 <div ng-show="error">{{error}}</div>
 
+<spinner>
+<img src="./content/spinner.gif" />
+</spinner>
+
 <div class="grid" ng-show="items">
     <div ng-repeat="item in items | orderBy: '+Price.Total'" ng-show="item" class="row">
         <img src="{{item.Image.ImageUrl}}" alt="Image" class="item-img" />
@@ -12,8 +16,4 @@
             </div>
         </div>
     </div>
-</div>
-
-<div ng-show="!items">
-    <h2>No items to show</h2>
 </div>

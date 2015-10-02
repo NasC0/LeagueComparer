@@ -398,6 +398,7 @@ namespace ComparerAPI.Controllers
         }
 
         // POST api/Account/RegisterExternal
+        [AllowAnonymous]
         [OverrideAuthentication]
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("RegisterExternal")]

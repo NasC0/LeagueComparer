@@ -234,6 +234,7 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MasteriesController.cs" />
     <Compile Include="Controllers\RunesController.cs" />
+    <Compile Include="Controllers\SlowController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

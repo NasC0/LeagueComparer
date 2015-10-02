@@ -1,0 +1,10 @@
+<div class="col-md-8">
+    <form name="associate" ng-submit="associateAccount()">
+        <h4>Please associate your {{externalLoginInfo.provider}} account with your email</h4>
+        <div class="form-group">
+            <input type="text" class="form-control" ng-model="email" name="email" placeholder="Email" required />
+        </div>
+
+        <input type="submit" value="Associate" class="btn btn-default btn-lg" />
+    </form>
+</div>
